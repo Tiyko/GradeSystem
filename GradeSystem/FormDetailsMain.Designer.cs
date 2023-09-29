@@ -216,7 +216,7 @@
             this.CLBModules.Size = new System.Drawing.Size(529, 130);
             this.CLBModules.TabIndex = 22;
             this.CLBModules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBModules_ItemCheck);
-            this.CLBModules.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
+            this.CLBModules.SelectedIndexChanged += new System.EventHandler(this.CLBModuleDetails_SelectedIndexChanged);
             // 
             // textBoxGrade
             // 
@@ -247,7 +247,7 @@
             this.LBLGradeName.TabIndex = 24;
             this.LBLGradeName.Text = "Grade:";
             this.LBLGradeName.Visible = false;
-            this.LBLGradeName.Click += new System.EventHandler(this.label1_Click);
+            this.LBLGradeName.Click += new System.EventHandler(this.LBLGradeName_Click);
             // 
             // LBLModName
             // 
@@ -317,7 +317,7 @@
             this.label1.Size = new System.Drawing.Size(82, 18);
             this.label1.TabIndex = 28;
             this.label1.Text = "Select File";
-            this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            this.label1.Click += new System.EventHandler(this.LBLSelectFile_Click);
             // 
             // RBCSV
             // 
@@ -328,7 +328,7 @@
             this.RBCSV.TabIndex = 2;
             this.RBCSV.Text = "CSV";
             this.RBCSV.UseVisualStyleBackColor = true;
-            this.RBCSV.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.RBCSV.CheckedChanged += new System.EventHandler(this.RBCSV_CheckedChanged);
             // 
             // RBXML
             // 

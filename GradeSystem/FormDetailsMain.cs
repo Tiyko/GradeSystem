@@ -174,17 +174,12 @@ namespace GradeSystem
             }
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void CLBModuleDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void LBLGradeName_Click(object sender, EventArgs e)
         {
 
         }
@@ -239,11 +234,6 @@ namespace GradeSystem
             }
         }
 
-        private void textBoxFile_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BTNImport_Click(object sender, EventArgs e)
         {
             string res = "";
@@ -253,22 +243,30 @@ namespace GradeSystem
                 filePath += textBoxFile.Text;
                 if (RBCSV.Checked)
                 {
+                   textBoxFile.Clear();
                    res = Data.InsertObjectsFromCsv<Grade>(filePath);
                 }
                 else if (RBCSV.Checked)
                 {
+                   textBoxFile.Clear();
                    res = Data.InsertObjectsFromXml<Grade>(filePath);
                 }
             }
-            LBLInfo.Text += res;
+            LBLInfo.Text += res + "\n";
+
         }
 
         private void RBXML_CheckedChanged(object sender, EventArgs e)
         {
-
+            textBoxFile.Clear();
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        private void RBCSV_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxFile.Clear();
+        }
+
+        private void textBoxFile_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -279,6 +277,10 @@ namespace GradeSystem
         }
 
         private void textBoxGrade_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void LBLSelectFile_Click(object sender, EventArgs e)
         {
 
         }
@@ -293,12 +295,11 @@ namespace GradeSystem
 
         }
 
-        private void groupBoxBulk_Enter(object sender, EventArgs e)
+        private void LBLPerson_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void LBLPerson_Click(object sender, EventArgs e)
+        private void groupBoxBulk_Enter(object sender, EventArgs e)
         {
 
         }

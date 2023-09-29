@@ -414,7 +414,7 @@ namespace GradeSystem
         public static string InsertObjectsFromXml<T>(string filePath, ClassMap<T> mapping = null)
         {
             string tableName = typeof(T).Name;
-            string res = $"Failed to insert {tableName}";
+            string res = $"Failed to insert {tableName} \n";
             try
             {
                 // Import objects from CSV
