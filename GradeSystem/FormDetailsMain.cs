@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GradeSystem
 {
@@ -44,7 +39,7 @@ namespace GradeSystem
 
         }
 
-        private void RBStatus_CheckedChanged(object sender, EventArgs e)
+        private void RBstatus_CheckedChanged(object sender, EventArgs e)
         {
             if (RBteacher.Checked)
             {
@@ -55,8 +50,8 @@ namespace GradeSystem
                 BTNaddMod.Text = "NEW MODULE";
                 ShowStudentComponents(false);
 
-                TXTBoxFirstName.Clear();
-                TXTBoxLastName.Clear();
+                TXTBfirstName.Clear();
+                TXTBlastName.Clear();
             }
             else
             {
@@ -67,8 +62,8 @@ namespace GradeSystem
                 BTNaddMod.Text = "NEW GRADE";
                 ShowStudentComponents(true);
 
-                TXTBoxFirstName.Clear();
-                TXTBoxLastName.Clear();
+                TXTBfirstName.Clear();
+                TXTBlastName.Clear();
             }
 
             EnableAddButton(true);
@@ -78,7 +73,17 @@ namespace GradeSystem
 
         }
 
-        private void CLBDetails_SelectedIndexChanged(object sender, EventArgs e)
+        private void RBxml_CheckedChanged(object sender, EventArgs e)
+        {
+            TXTBfile.Clear();
+        }
+
+        private void RBcsv_CheckedChanged(object sender, EventArgs e)
+        {
+            TXTBfile.Clear();
+        }
+
+        private void CLBdetails_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSelectedDetails();
             if (Stat == "STUDENT")
@@ -92,18 +97,7 @@ namespace GradeSystem
             SetAddButtonStateNew();
         }
 
-        private void BTNClose_Click(object sender, EventArgs e)
-        {
-            DialogResult dlgRes = new DialogResult();
-            dlgRes = MessageBox.Show("Are you sure you want to exit?", "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-            if (dlgRes == DialogResult.OK)
-            {
-                Application.Exit();
-            }
-        }
-
-        private void CLBDetails_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void CLBdetails_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CheckedListBox listBox = (CheckedListBox)sender;
 
@@ -125,7 +119,19 @@ namespace GradeSystem
             }
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void CLBmoduleDetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void CLBmodules_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
+
+        private void BTNadd_Click(object sender, EventArgs e)
         {
 
             string buttonState = BTNadd.Text;
@@ -140,7 +146,7 @@ namespace GradeSystem
             }
             else
             {
-                if (Stat == "TEACHER") 
+                if (Stat == "TEACHER")
                     numRowsAffected = AddTeacher();
                 else
                     numRowsAffected = AddStudent();
@@ -160,51 +166,17 @@ namespace GradeSystem
             }
         }
 
-        private void TXTBox_TextChanged(object sender, EventArgs e)
-        {
-            if ((TXTBoxFirstName.TextLength > 0 && TXTBoxLastName.TextLength > 0 &&
-                BTNadd.Text == "SAVE " + Stat) ||
-                BTNadd.Text == "NEW " + Stat)
-            {
-                EnableAddButton(true);
-            }
-            else
-            {
-                EnableAddButton(false);
-            }
-        }
-
-        private void CLBModuleDetails_SelectedIndexChanged(object sender, EventArgs e)
+        private void BTNupdateMod_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void LBLGradeName_Click(object sender, EventArgs e)
+        private void BTNdeleteMod_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void BTNAddMod_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CLBModules_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-
-        }
-
-        private void BTNUpdateMod_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BTNDeleteMod_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BTNFile_Click(object sender, EventArgs e)
+        private void BTNfile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
@@ -227,83 +199,115 @@ namespace GradeSystem
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     var file = dlg.FileName.Replace(filePath, "");
-                    TXTBoxFile.Text = file;
+                    TXTBfile.Text = file;
                     BTNimport.Enabled = true;
                 }
-                
+
             }
         }
 
-        private void BTNImport_Click(object sender, EventArgs e)
+        private void BTNimport_Click(object sender, EventArgs e)
         {
             string res = "";
             string filePath = Data.GetRootDir() + "\\Grade\\";
-            if (TXTBoxFile.TextLength > 0) 
+            if (TXTBfile.TextLength > 0)
             {
-                filePath += TXTBoxFile.Text;
+                filePath += TXTBfile.Text;
                 if (RBcsv.Checked)
                 {
-                    TXTBoxFile.Clear();
+                    TXTBfile.Clear();
                     res = Data.InsertObjectsFromCsv<Grade>(filePath);
                 }
                 else if (RBxml.Checked)
                 {
-                    TXTBoxFile.Clear();
+                    TXTBfile.Clear();
                     res = Data.InsertObjectsFromXml<Grade>(filePath);
                 }
                 else
                 {
-                    
+
                 }
             }
             LBLinfo.Text += res + "\n";
 
         }
 
-        private void RBXML_CheckedChanged(object sender, EventArgs e)
+        private void BTNclose_Click(object sender, EventArgs e)
         {
-            TXTBoxFile.Clear();
+            DialogResult dlgRes = new DialogResult();
+            dlgRes = MessageBox.Show("Are you sure you want to exit?", "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            if (dlgRes == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
-        private void RBCSV_CheckedChanged(object sender, EventArgs e)
-        {
-            TXTBoxFile.Clear();
-        }
-
-        private void TXTBoxFile_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TXTBoxModule_TextChanged(object sender, EventArgs e)
+        private void BTNaddMod_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void TXTBoxGrade_TextChanged(object sender, EventArgs e)
+
+        private void TXTB_TextChanged(object sender, EventArgs e)
+        {
+            if ((TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0 &&
+                BTNadd.Text == "SAVE " + Stat) ||
+                BTNadd.Text == "NEW " + Stat)
+            {
+                EnableAddButton(true);
+            }
+            else
+            {
+                EnableAddButton(false);
+            }
+        }
+
+        private void TXTBFile_TextChanged(object sender, EventArgs e)
         {
 
         }
-        private void LBLSelectFile_Click(object sender, EventArgs e)
+
+        private void TXTBModule_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void LBLModName_Click(object sender, EventArgs e)
+        private void TXTBGrade_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void LBLInfo_Click(object sender, EventArgs e)
+
+        private void LBLfile_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void LBLPerson_Click(object sender, EventArgs e)
+        private void LBLmodName_Click(object sender, EventArgs e)
         {
 
         }
-        private void GBoxBulk_Enter(object sender, EventArgs e)
+
+        private void LBLinfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LBLperson_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void LBLGradeName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GBBulk_Enter(object sender, EventArgs e)
+        {
+
+        }
+        private void PANELinfo_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -351,8 +355,8 @@ namespace GradeSystem
                 }
             }
 
-            TXTBoxFirstName.Text = fName; // display the retrevied and stored information
-            TXTBoxLastName.Text = lName; // to the form's textboxes, in the curent case
+            TXTBfirstName.Text = fName; // display the retrevied and stored information
+            TXTBlastName.Text = lName; // to the form's textboxes, in the curent case
                                           // a student or a teacher's first and last name
 
         }
@@ -365,11 +369,11 @@ namespace GradeSystem
                             "Join Grade g On g.ModID = m.ModID " +
                             "Where g.StudentID = '" + id + "'";
 
-            // Clear the ClbModule items
+            // Clear the CLBModule items
             CLBmodules.Items.Clear();
             var moduleInfo = Data.GetData<Module>(sql);
             var gradeInfo = Data.GetData<Grade>(sql);
-            // Load data into ClbModule
+            // Load data into CLBModule
             Utils.LoadModListBox(CLBmodules, moduleInfo, gradeInfo);
         }
 
@@ -384,8 +388,8 @@ namespace GradeSystem
 
                 SetTextBoxReadOnly(true);
 
-                TXTBoxFirstName.Text = ""; // clearing fields using an empty string
-                TXTBoxLastName.Clear(); // clearing fields using Clear() function
+                TXTBfirstName.Text = ""; // clearing fields using an empty string
+                TXTBlastName.Clear(); // clearing fields using Clear() function
             }
 
         }
@@ -409,7 +413,7 @@ namespace GradeSystem
 
         private int AddTeacher()
         {
-            string sql = "insert into " + Stat + "(fName, lName) Values('" + TXTBoxFirstName.Text + "', '" + TXTBoxLastName.Text + "')";
+            string sql = "insert into " + Stat + "(fName, lName) Values('" + TXTBfirstName.Text + "', '" + TXTBlastName.Text + "')";
 
             int numRowsAffected = Data.ExecuteSqlNonQuery(sql);
 
@@ -420,8 +424,8 @@ namespace GradeSystem
         private int AddStudent() 
         {
             string storedProcedure = "SP_InsertStudent";
-            string fName = TXTBoxFirstName.Text;
-            string lName = TXTBoxLastName.Text;
+            string fName = TXTBfirstName.Text;
+            string lName = TXTBlastName.Text;
 
             Dictionary<string, object> spParams = new Dictionary<string, object> 
             {
@@ -459,8 +463,8 @@ namespace GradeSystem
         private void SetTextBoxReadOnly(bool state)
         {
 
-            TXTBoxFirstName.ReadOnly = state;
-            TXTBoxLastName.ReadOnly = state;
+            TXTBfirstName.ReadOnly = state;
+            TXTBlastName.ReadOnly = state;
         }
 
         private void EnableAddButton(bool state) 
@@ -472,8 +476,8 @@ namespace GradeSystem
         private void ShowStudentComponents(bool state)
         {
             LBLgradeName.Visible = state;
-            TXTBoxGrade.Visible = state;
-            GBoxBulk.Visible = state;
+            TXTBGrade.Visible = state;
+            GBBulk.Visible = state;
         }
 
         private void LoadModules() 
@@ -621,11 +625,6 @@ namespace GradeSystem
             Detail,
             Module,
             Both
-        }
-
-        private void PANELInfo_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

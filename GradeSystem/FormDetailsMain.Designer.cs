@@ -33,22 +33,22 @@
             this.CLBdetails = new System.Windows.Forms.CheckedListBox();
             this.LBLfirstName = new System.Windows.Forms.Label();
             this.LBLlastName = new System.Windows.Forms.Label();
-            this.TXTBoxFirstName = new System.Windows.Forms.TextBox();
-            this.TXTBoxLastName = new System.Windows.Forms.TextBox();
+            this.TXTBfirstName = new System.Windows.Forms.TextBox();
+            this.TXTBlastName = new System.Windows.Forms.TextBox();
             this.BTNadd = new System.Windows.Forms.Button();
             this.BTNupdate = new System.Windows.Forms.Button();
             this.BTNdelete = new System.Windows.Forms.Button();
-            this.GBox = new System.Windows.Forms.GroupBox();
+            this.GB = new System.Windows.Forms.GroupBox();
             this.RBteacher = new System.Windows.Forms.RadioButton();
             this.RBstudent = new System.Windows.Forms.RadioButton();
             this.CLBmodules = new System.Windows.Forms.CheckedListBox();
-            this.TXTBoxGrade = new System.Windows.Forms.TextBox();
-            this.TXTBoxModule = new System.Windows.Forms.TextBox();
+            this.TXTBGrade = new System.Windows.Forms.TextBox();
+            this.TXTBModule = new System.Windows.Forms.TextBox();
             this.LBLgradeName = new System.Windows.Forms.Label();
             this.LBLmodName = new System.Windows.Forms.Label();
-            this.GBoxBulk = new System.Windows.Forms.GroupBox();
+            this.GBBulk = new System.Windows.Forms.GroupBox();
             this.BTNimport = new System.Windows.Forms.Button();
-            this.TXTBoxFile = new System.Windows.Forms.TextBox();
+            this.TXTBfile = new System.Windows.Forms.TextBox();
             this.BTNfile = new System.Windows.Forms.Button();
             this.LBLfile = new System.Windows.Forms.Label();
             this.RBcsv = new System.Windows.Forms.RadioButton();
@@ -59,8 +59,8 @@
             this.LBLinfo = new System.Windows.Forms.Label();
             this.PANELinfo = new System.Windows.Forms.Panel();
             this.LBLinfoPanel = new System.Windows.Forms.Label();
-            this.GBox.SuspendLayout();
-            this.GBoxBulk.SuspendLayout();
+            this.GB.SuspendLayout();
+            this.GBBulk.SuspendLayout();
             this.PANELinfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +73,7 @@
             this.BTNclose.TabIndex = 5;
             this.BTNclose.Text = "EXIT";
             this.BTNclose.UseVisualStyleBackColor = true;
-            this.BTNclose.Click += new System.EventHandler(this.BTNClose_Click);
+            this.BTNclose.Click += new System.EventHandler(this.BTNclose_Click);
             // 
             // LBLPerson
             // 
@@ -84,7 +84,7 @@
             this.LBLperson.Size = new System.Drawing.Size(122, 18);
             this.LBLperson.TabIndex = 6;
             this.LBLperson.Text = "Select Teacher:";
-            this.LBLperson.Click += new System.EventHandler(this.LBLPerson_Click);
+            this.LBLperson.Click += new System.EventHandler(this.LBLperson_Click);
             // 
             // CLBDetails
             // 
@@ -96,8 +96,8 @@
             this.CLBdetails.Name = "CLBDetails";
             this.CLBdetails.Size = new System.Drawing.Size(867, 277);
             this.CLBdetails.TabIndex = 7;
-            this.CLBdetails.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBDetails_ItemCheck);
-            this.CLBdetails.SelectedIndexChanged += new System.EventHandler(this.CLBDetails_SelectedIndexChanged);
+            this.CLBdetails.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBdetails_ItemCheck);
+            this.CLBdetails.SelectedIndexChanged += new System.EventHandler(this.CLBdetails_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -121,21 +121,21 @@
             // 
             // textBoxFirstName
             // 
-            this.TXTBoxFirstName.Location = new System.Drawing.Point(18, 204);
-            this.TXTBoxFirstName.Name = "textBoxFirstName";
-            this.TXTBoxFirstName.ReadOnly = true;
-            this.TXTBoxFirstName.Size = new System.Drawing.Size(207, 26);
-            this.TXTBoxFirstName.TabIndex = 15;
-            this.TXTBoxFirstName.TextChanged += new System.EventHandler(this.TXTBox_TextChanged);
+            this.TXTBfirstName.Location = new System.Drawing.Point(18, 204);
+            this.TXTBfirstName.Name = "textBoxFirstName";
+            this.TXTBfirstName.ReadOnly = true;
+            this.TXTBfirstName.Size = new System.Drawing.Size(207, 26);
+            this.TXTBfirstName.TabIndex = 15;
+            this.TXTBfirstName.TextChanged += new System.EventHandler(this.TXTB_TextChanged);
             // 
             // textBoxLastName
             // 
-            this.TXTBoxLastName.Location = new System.Drawing.Point(18, 268);
-            this.TXTBoxLastName.Name = "textBoxLastName";
-            this.TXTBoxLastName.ReadOnly = true;
-            this.TXTBoxLastName.Size = new System.Drawing.Size(207, 26);
-            this.TXTBoxLastName.TabIndex = 16;
-            this.TXTBoxLastName.TextChanged += new System.EventHandler(this.TXTBox_TextChanged);
+            this.TXTBlastName.Location = new System.Drawing.Point(18, 268);
+            this.TXTBlastName.Name = "textBoxLastName";
+            this.TXTBlastName.ReadOnly = true;
+            this.TXTBlastName.Size = new System.Drawing.Size(207, 26);
+            this.TXTBlastName.TabIndex = 16;
+            this.TXTBlastName.TextChanged += new System.EventHandler(this.TXTB_TextChanged);
             // 
             // BtnAdd
             // 
@@ -147,7 +147,7 @@
             this.BTNadd.TabIndex = 18;
             this.BTNadd.Text = "NEW TEACHER";
             this.BTNadd.UseVisualStyleBackColor = true;
-            this.BTNadd.Click += new System.EventHandler(this.BtnAdd_Click);
+            this.BTNadd.Click += new System.EventHandler(this.BTNadd_Click);
             // 
             // BtnUpdate
             // 
@@ -175,14 +175,14 @@
             // 
             // groupBox1
             // 
-            this.GBox.Controls.Add(this.RBteacher);
-            this.GBox.Controls.Add(this.RBstudent);
-            this.GBox.Location = new System.Drawing.Point(12, 12);
-            this.GBox.Name = "groupBox1";
-            this.GBox.Size = new System.Drawing.Size(190, 47);
-            this.GBox.TabIndex = 21;
-            this.GBox.TabStop = false;
-            this.GBox.Text = "Status";
+            this.GB.Controls.Add(this.RBteacher);
+            this.GB.Controls.Add(this.RBstudent);
+            this.GB.Location = new System.Drawing.Point(12, 12);
+            this.GB.Name = "groupBox1";
+            this.GB.Size = new System.Drawing.Size(190, 47);
+            this.GB.TabIndex = 21;
+            this.GB.TabStop = false;
+            this.GB.Text = "Status";
             // 
             // RBTeacher
             // 
@@ -195,7 +195,7 @@
             this.RBteacher.TabStop = true;
             this.RBteacher.Text = "Teacher";
             this.RBteacher.UseVisualStyleBackColor = true;
-            this.RBteacher.CheckedChanged += new System.EventHandler(this.RBStatus_CheckedChanged);
+            this.RBteacher.CheckedChanged += new System.EventHandler(this.RBstatus_CheckedChanged);
             // 
             // RBStudent
             // 
@@ -206,7 +206,7 @@
             this.RBstudent.TabIndex = 0;
             this.RBstudent.Text = "Student";
             this.RBstudent.UseVisualStyleBackColor = true;
-            this.RBstudent.CheckedChanged += new System.EventHandler(this.RBStatus_CheckedChanged);
+            this.RBstudent.CheckedChanged += new System.EventHandler(this.RBstatus_CheckedChanged);
             // 
             // CLBModules
             // 
@@ -218,27 +218,27 @@
             this.CLBmodules.Name = "CLBModules";
             this.CLBmodules.Size = new System.Drawing.Size(529, 130);
             this.CLBmodules.TabIndex = 22;
-            this.CLBmodules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBModules_ItemCheck);
-            this.CLBmodules.SelectedIndexChanged += new System.EventHandler(this.CLBModuleDetails_SelectedIndexChanged);
+            this.CLBmodules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBmodules_ItemCheck);
+            this.CLBmodules.SelectedIndexChanged += new System.EventHandler(this.CLBmoduleDetails_SelectedIndexChanged);
             // 
             // textBoxGrade
             // 
-            this.TXTBoxGrade.Location = new System.Drawing.Point(18, 429);
-            this.TXTBoxGrade.Name = "textBoxGrade";
-            this.TXTBoxGrade.ReadOnly = true;
-            this.TXTBoxGrade.Size = new System.Drawing.Size(207, 26);
-            this.TXTBoxGrade.TabIndex = 26;
-            this.TXTBoxGrade.Visible = false;
-            this.TXTBoxGrade.TextChanged += new System.EventHandler(this.TXTBoxGrade_TextChanged);
+            this.TXTBGrade.Location = new System.Drawing.Point(18, 429);
+            this.TXTBGrade.Name = "textBoxGrade";
+            this.TXTBGrade.ReadOnly = true;
+            this.TXTBGrade.Size = new System.Drawing.Size(207, 26);
+            this.TXTBGrade.TabIndex = 26;
+            this.TXTBGrade.Visible = false;
+            this.TXTBGrade.TextChanged += new System.EventHandler(this.TXTBGrade_TextChanged);
             // 
             // textBoxModule
             // 
-            this.TXTBoxModule.Location = new System.Drawing.Point(18, 366);
-            this.TXTBoxModule.Name = "textBoxModule";
-            this.TXTBoxModule.ReadOnly = true;
-            this.TXTBoxModule.Size = new System.Drawing.Size(207, 26);
-            this.TXTBoxModule.TabIndex = 25;
-            this.TXTBoxModule.TextChanged += new System.EventHandler(this.TXTBoxModule_TextChanged);
+            this.TXTBModule.Location = new System.Drawing.Point(18, 366);
+            this.TXTBModule.Name = "textBoxModule";
+            this.TXTBModule.ReadOnly = true;
+            this.TXTBModule.Size = new System.Drawing.Size(207, 26);
+            this.TXTBModule.TabIndex = 25;
+            this.TXTBModule.TextChanged += new System.EventHandler(this.TXTBModule_TextChanged);
             // 
             // LBLGradeName
             // 
@@ -261,24 +261,24 @@
             this.LBLmodName.Size = new System.Drawing.Size(122, 18);
             this.LBLmodName.TabIndex = 23;
             this.LBLmodName.Text = "Module Name: ";
-            this.LBLmodName.Click += new System.EventHandler(this.LBLModName_Click);
+            this.LBLmodName.Click += new System.EventHandler(this.LBLmodName_Click);
             // 
             // groupBoxBulk
             // 
-            this.GBoxBulk.Controls.Add(this.BTNimport);
-            this.GBoxBulk.Controls.Add(this.TXTBoxFile);
-            this.GBoxBulk.Controls.Add(this.BTNfile);
-            this.GBoxBulk.Controls.Add(this.LBLfile);
-            this.GBoxBulk.Controls.Add(this.RBcsv);
-            this.GBoxBulk.Controls.Add(this.RBxml);
-            this.GBoxBulk.Location = new System.Drawing.Point(777, 342);
-            this.GBoxBulk.Name = "groupBoxBulk";
-            this.GBoxBulk.Size = new System.Drawing.Size(322, 158);
-            this.GBoxBulk.TabIndex = 27;
-            this.GBoxBulk.TabStop = false;
-            this.GBoxBulk.Text = "Bulk Imports";
-            this.GBoxBulk.Visible = false;
-            this.GBoxBulk.Enter += new System.EventHandler(this.GBoxBulk_Enter);
+            this.GBBulk.Controls.Add(this.BTNimport);
+            this.GBBulk.Controls.Add(this.TXTBfile);
+            this.GBBulk.Controls.Add(this.BTNfile);
+            this.GBBulk.Controls.Add(this.LBLfile);
+            this.GBBulk.Controls.Add(this.RBcsv);
+            this.GBBulk.Controls.Add(this.RBxml);
+            this.GBBulk.Location = new System.Drawing.Point(777, 342);
+            this.GBBulk.Name = "groupBoxBulk";
+            this.GBBulk.Size = new System.Drawing.Size(322, 158);
+            this.GBBulk.TabIndex = 27;
+            this.GBBulk.TabStop = false;
+            this.GBBulk.Text = "Bulk Imports";
+            this.GBBulk.Visible = false;
+            this.GBBulk.Enter += new System.EventHandler(this.GBBulk_Enter);
             // 
             // BTNImport
             // 
@@ -289,16 +289,16 @@
             this.BTNimport.TabIndex = 29;
             this.BTNimport.Text = "IMPORT";
             this.BTNimport.UseVisualStyleBackColor = true;
-            this.BTNimport.Click += new System.EventHandler(this.BTNImport_Click);
+            this.BTNimport.Click += new System.EventHandler(this.BTNimport_Click);
             // 
             // TXTBoxFile
             // 
-            this.TXTBoxFile.Location = new System.Drawing.Point(50, 70);
-            this.TXTBoxFile.Name = "TXTBoxFile";
-            this.TXTBoxFile.ReadOnly = true;
-            this.TXTBoxFile.Size = new System.Drawing.Size(226, 26);
-            this.TXTBoxFile.TabIndex = 28;
-            this.TXTBoxFile.TextChanged += new System.EventHandler(this.TXTBoxFile_TextChanged);
+            this.TXTBfile.Location = new System.Drawing.Point(50, 70);
+            this.TXTBfile.Name = "TXTBoxFile";
+            this.TXTBfile.ReadOnly = true;
+            this.TXTBfile.Size = new System.Drawing.Size(226, 26);
+            this.TXTBfile.TabIndex = 28;
+            this.TXTBfile.TextChanged += new System.EventHandler(this.TXTBFile_TextChanged);
             // 
             // BTNFile
             // 
@@ -309,7 +309,7 @@
             this.BTNfile.TabIndex = 28;
             this.BTNfile.Text = "FILE";
             this.BTNfile.UseVisualStyleBackColor = true;
-            this.BTNfile.Click += new System.EventHandler(this.BTNFile_Click);
+            this.BTNfile.Click += new System.EventHandler(this.BTNfile_Click);
             // 
             // label1
             // 
@@ -320,7 +320,7 @@
             this.LBLfile.Size = new System.Drawing.Size(82, 18);
             this.LBLfile.TabIndex = 28;
             this.LBLfile.Text = "Select File";
-            this.LBLfile.Click += new System.EventHandler(this.LBLSelectFile_Click);
+            this.LBLfile.Click += new System.EventHandler(this.LBLfile_Click);
             // 
             // RBCSV
             // 
@@ -331,7 +331,7 @@
             this.RBcsv.TabIndex = 2;
             this.RBcsv.Text = "CSV";
             this.RBcsv.UseVisualStyleBackColor = true;
-            this.RBcsv.CheckedChanged += new System.EventHandler(this.RBCSV_CheckedChanged);
+            this.RBcsv.CheckedChanged += new System.EventHandler(this.RBcsv_CheckedChanged);
             // 
             // RBXML
             // 
@@ -344,7 +344,7 @@
             this.RBxml.TabStop = true;
             this.RBxml.Text = "XML";
             this.RBxml.UseVisualStyleBackColor = true;
-            this.RBxml.CheckedChanged += new System.EventHandler(this.RBXML_CheckedChanged);
+            this.RBxml.CheckedChanged += new System.EventHandler(this.RBxml_CheckedChanged);
             // 
             // BTNDeleteMod
             // 
@@ -357,7 +357,7 @@
             this.BTNdeleteMod.TabIndex = 30;
             this.BTNdeleteMod.Text = "DELETE";
             this.BTNdeleteMod.UseVisualStyleBackColor = true;
-            this.BTNdeleteMod.Click += new System.EventHandler(this.BTNDeleteMod_Click);
+            this.BTNdeleteMod.Click += new System.EventHandler(this.BTNdeleteMod_Click);
             // 
             // BTNUpdateMod
             // 
@@ -370,7 +370,7 @@
             this.BTNupdateMod.TabIndex = 29;
             this.BTNupdateMod.Text = "UPDATE";
             this.BTNupdateMod.UseVisualStyleBackColor = true;
-            this.BTNupdateMod.Click += new System.EventHandler(this.BTNUpdateMod_Click);
+            this.BTNupdateMod.Click += new System.EventHandler(this.BTNupdateMod_Click);
             // 
             // BTNAddMod
             // 
@@ -382,7 +382,7 @@
             this.BTNaddMod.TabIndex = 28;
             this.BTNaddMod.Text = "NEW MODULE";
             this.BTNaddMod.UseVisualStyleBackColor = true;
-            this.BTNaddMod.Click += new System.EventHandler(this.BTNAddMod_Click);
+            this.BTNaddMod.Click += new System.EventHandler(this.BTNaddMod_Click);
             // 
             // LBLInfo
             // 
@@ -395,7 +395,7 @@
             this.LBLinfo.Name = "LBLInfo";
             this.LBLinfo.Size = new System.Drawing.Size(0, 16);
             this.LBLinfo.TabIndex = 31;
-            this.LBLinfo.Click += new System.EventHandler(this.LBLInfo_Click);
+            this.LBLinfo.Click += new System.EventHandler(this.LBLinfo_Click);
             // 
             // PANELInfo
             // 
@@ -406,7 +406,7 @@
             this.PANELinfo.Name = "PANELInfo";
             this.PANELinfo.Size = new System.Drawing.Size(960, 145);
             this.PANELinfo.TabIndex = 33;
-            this.PANELinfo.Paint += new System.Windows.Forms.PaintEventHandler(this.PANELInfo_Paint);
+            this.PANELinfo.Paint += new System.Windows.Forms.PaintEventHandler(this.PANELinfo_Paint);
             // 
             // LBLInfoPanel
             // 
@@ -428,18 +428,18 @@
             this.Controls.Add(this.BTNdeleteMod);
             this.Controls.Add(this.BTNupdateMod);
             this.Controls.Add(this.BTNaddMod);
-            this.Controls.Add(this.GBoxBulk);
-            this.Controls.Add(this.TXTBoxGrade);
-            this.Controls.Add(this.TXTBoxModule);
+            this.Controls.Add(this.GBBulk);
+            this.Controls.Add(this.TXTBGrade);
+            this.Controls.Add(this.TXTBModule);
             this.Controls.Add(this.LBLgradeName);
             this.Controls.Add(this.LBLmodName);
             this.Controls.Add(this.CLBmodules);
-            this.Controls.Add(this.GBox);
+            this.Controls.Add(this.GB);
             this.Controls.Add(this.BTNdelete);
             this.Controls.Add(this.BTNupdate);
             this.Controls.Add(this.BTNadd);
-            this.Controls.Add(this.TXTBoxLastName);
-            this.Controls.Add(this.TXTBoxFirstName);
+            this.Controls.Add(this.TXTBlastName);
+            this.Controls.Add(this.TXTBfirstName);
             this.Controls.Add(this.LBLlastName);
             this.Controls.Add(this.LBLfirstName);
             this.Controls.Add(this.CLBdetails);
@@ -450,10 +450,10 @@
             this.Name = "FormDetailsMain";
             this.Text = "Teacher Details";
             this.Load += new System.EventHandler(this.FormDetailsMain_Load);
-            this.GBox.ResumeLayout(false);
-            this.GBox.PerformLayout();
-            this.GBoxBulk.ResumeLayout(false);
-            this.GBoxBulk.PerformLayout();
+            this.GB.ResumeLayout(false);
+            this.GB.PerformLayout();
+            this.GBBulk.ResumeLayout(false);
+            this.GBBulk.PerformLayout();
             this.PANELinfo.ResumeLayout(false);
             this.PANELinfo.PerformLayout();
             this.ResumeLayout(false);
@@ -468,26 +468,26 @@
         private System.Windows.Forms.CheckedListBox CLBdetails;
         private System.Windows.Forms.Label LBLfirstName;
         private System.Windows.Forms.Label LBLlastName;
-        private System.Windows.Forms.TextBox TXTBoxFirstName;
-        private System.Windows.Forms.TextBox TXTBoxLastName;
+        private System.Windows.Forms.TextBox TXTBfirstName;
+        private System.Windows.Forms.TextBox TXTBlastName;
         private System.Windows.Forms.Button BTNadd;
         private System.Windows.Forms.Button BTNupdate;
         private System.Windows.Forms.Button BTNdelete;
-        private System.Windows.Forms.GroupBox GBox;
+        private System.Windows.Forms.GroupBox GB;
         private System.Windows.Forms.RadioButton RBteacher;
         private System.Windows.Forms.RadioButton RBstudent;
         private System.Windows.Forms.CheckedListBox CLBmodules;
-        private System.Windows.Forms.TextBox TXTBoxGrade;
-        private System.Windows.Forms.TextBox TXTBoxModule;
+        private System.Windows.Forms.TextBox TXTBGrade;
+        private System.Windows.Forms.TextBox TXTBModule;
         private System.Windows.Forms.Label LBLgradeName;
         private System.Windows.Forms.Label LBLmodName;
-        private System.Windows.Forms.GroupBox GBoxBulk;
+        private System.Windows.Forms.GroupBox GBBulk;
         private System.Windows.Forms.RadioButton RBxml;
         private System.Windows.Forms.RadioButton RBcsv;
         private System.Windows.Forms.Label LBLfile;
         private System.Windows.Forms.Button BTNfile;
         private System.Windows.Forms.Button BTNimport;
-        private System.Windows.Forms.TextBox TXTBoxFile;
+        private System.Windows.Forms.TextBox TXTBfile;
         private System.Windows.Forms.Button BTNdeleteMod;
         private System.Windows.Forms.Button BTNupdateMod;
         private System.Windows.Forms.Button BTNaddMod;
