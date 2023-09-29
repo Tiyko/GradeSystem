@@ -19,8 +19,8 @@ namespace GradeSystem
 {
     public class Data
     {
-        static readonly string connectionString = ConfigurationManager.AppSettings["connectingString"];
         public static string RootDir { get; set; }
+        static readonly string connectionString = ConfigurationManager.AppSettings["connectingString"];
 
         public static string ErrLogFilePath = GetRootDir() + "\\Logs\\Error.log";
         public static string SqlLogFilePath = GetRootDir() + "\\Logs\\SqlLog.log";
@@ -261,7 +261,7 @@ namespace GradeSystem
 
                     if (rowsInserted > 0)
                     {
-                        res = $"{tableName} inserted successfully. \n";
+                        res = $"{tableName} inserted successfully.";
                     }
                 }
             }
@@ -439,7 +439,7 @@ namespace GradeSystem
 
                     if (rowsInserted > 0)
                     {
-                        res = $"{tableName} inserted successfully. \n";
+                        res = $"{tableName} inserted successfully.";
                     }
                 }
             }

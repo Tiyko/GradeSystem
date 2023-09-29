@@ -26,16 +26,16 @@ namespace GradeSystem
 
 
         // Events
-        private void FormTeacherList_Load(object sender, EventArgs e)
+        private void FormDetailsMain_Load(object sender, EventArgs e)
         {
             Data.GetRootDir();
             string res = "";
 
             res = Data.InsertObjectsFromCsv<Teacher>(Data.RootDir + "\\Teacher\\InitTeachers.csv");
-            LBLInfo.Text += res + "\n";
+            LBLinfo.Text += res + "\n";
 
             res = Data.InsertObjectsFromCsv<Student>(Data.RootDir + "\\Student\\InitStudents.csv");
-            LBLInfo.Text += res + "\n";
+            LBLinfo.Text += res + "\n";
 
             // Populate the CheckedListBox with a list of teachers from the database
             LoadPersonDetails(Stat);
@@ -46,29 +46,29 @@ namespace GradeSystem
 
         private void RBStatus_CheckedChanged(object sender, EventArgs e)
         {
-            if (RBTeacher.Checked)
+            if (RBteacher.Checked)
             {
                 this.Text = "Teacher Details";
-                LBLPerson.Text = "Select Teacher";
+                LBLperson.Text = "Select Teacher";
                 Stat = "TEACHER";
-                BtnAdd.Text = "NEW TEACHER";
-                BTNAddMod.Text = "NEW MODULE";
+                BTNadd.Text = "NEW TEACHER";
+                BTNaddMod.Text = "NEW MODULE";
                 ShowStudentComponents(false);
 
-                textBoxFirstName.Clear();
-                textBoxLastName.Clear();
+                TXTBoxFirstName.Clear();
+                TXTBoxLastName.Clear();
             }
             else
             {
                 this.Text = "Student Details";
-                LBLPerson.Text = "Select Student";
+                LBLperson.Text = "Select Student";
                 Stat = "STUDENT";
-                BtnAdd.Text = "NEW STUDENT";
-                BTNAddMod.Text = "NEW GRADE";
+                BTNadd.Text = "NEW STUDENT";
+                BTNaddMod.Text = "NEW GRADE";
                 ShowStudentComponents(true);
 
-                textBoxFirstName.Clear();
-                textBoxLastName.Clear();
+                TXTBoxFirstName.Clear();
+                TXTBoxLastName.Clear();
             }
 
             EnableAddButton(true);
@@ -92,7 +92,7 @@ namespace GradeSystem
             SetAddButtonStateNew();
         }
 
-        private void BtnClose_Click(object sender, EventArgs e)
+        private void BTNClose_Click(object sender, EventArgs e)
         {
             DialogResult dlgRes = new DialogResult();
             dlgRes = MessageBox.Show("Are you sure you want to exit?", "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
@@ -128,7 +128,7 @@ namespace GradeSystem
         private void BtnAdd_Click(object sender, EventArgs e)
         {
 
-            string buttonState = BtnAdd.Text;
+            string buttonState = BTNadd.Text;
             int numRowsAffected = 0;
 
 
@@ -160,11 +160,11 @@ namespace GradeSystem
             }
         }
 
-        private void textBox_TextChanged(object sender, EventArgs e)
+        private void TXTBox_TextChanged(object sender, EventArgs e)
         {
-            if ((textBoxFirstName.TextLength > 0 && textBoxLastName.TextLength > 0 &&
-                BtnAdd.Text == "SAVE " + Stat) ||
-                BtnAdd.Text == "NEW " + Stat)
+            if ((TXTBoxFirstName.TextLength > 0 && TXTBoxLastName.TextLength > 0 &&
+                BTNadd.Text == "SAVE " + Stat) ||
+                BTNadd.Text == "NEW " + Stat)
             {
                 EnableAddButton(true);
             }
@@ -209,12 +209,12 @@ namespace GradeSystem
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 string filePath = Data.GetRootDir() + "\\Grade\\";
-                if (RBCSV.Checked)
+                if (RBcsv.Checked)
                 {
                     dlg.Title = "Select CSV File!";
                     dlg.Filter = "CSV Files (*.csv)|*.csv";
                 }
-                else if (RBXML.Checked)
+                else if (RBxml.Checked)
                 {
 
                     dlg.Title = "Select XML File!";
@@ -227,8 +227,8 @@ namespace GradeSystem
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     var file = dlg.FileName.Replace(filePath, "");
-                    textBoxFile.Text = file;
-                    BTNImport.Enabled = true;
+                    TXTBoxFile.Text = file;
+                    BTNimport.Enabled = true;
                 }
                 
             }
@@ -238,45 +238,49 @@ namespace GradeSystem
         {
             string res = "";
             string filePath = Data.GetRootDir() + "\\Grade\\";
-            if (textBoxFile.TextLength > 0) 
+            if (TXTBoxFile.TextLength > 0) 
             {
-                filePath += textBoxFile.Text;
-                if (RBCSV.Checked)
+                filePath += TXTBoxFile.Text;
+                if (RBcsv.Checked)
                 {
-                   textBoxFile.Clear();
-                   res = Data.InsertObjectsFromCsv<Grade>(filePath);
+                    TXTBoxFile.Clear();
+                    res = Data.InsertObjectsFromCsv<Grade>(filePath);
                 }
-                else if (RBCSV.Checked)
+                else if (RBxml.Checked)
                 {
-                   textBoxFile.Clear();
-                   res = Data.InsertObjectsFromXml<Grade>(filePath);
+                    TXTBoxFile.Clear();
+                    res = Data.InsertObjectsFromXml<Grade>(filePath);
+                }
+                else
+                {
+                    
                 }
             }
-            LBLInfo.Text += res + "\n";
+            LBLinfo.Text += res + "\n";
 
         }
 
         private void RBXML_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFile.Clear();
+            TXTBoxFile.Clear();
         }
 
         private void RBCSV_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxFile.Clear();
+            TXTBoxFile.Clear();
         }
 
-        private void textBoxFile_TextChanged(object sender, EventArgs e)
+        private void TXTBoxFile_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void textBoxModule_TextChanged(object sender, EventArgs e)
+        private void TXTBoxModule_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void textBoxGrade_TextChanged(object sender, EventArgs e)
+        private void TXTBoxGrade_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -299,7 +303,7 @@ namespace GradeSystem
         {
 
         }
-        private void groupBoxBulk_Enter(object sender, EventArgs e)
+        private void GBoxBulk_Enter(object sender, EventArgs e)
         {
 
         }
@@ -308,7 +312,7 @@ namespace GradeSystem
         public void LoadPersonDetails(string personType) // function to query the database and select a table depending on necessity
         {
             string sql = "select * from " + personType; // query the database and store the details in a variable
-            Utils.LoadListBox(CLBDetails, sql, Stat); // populates the form CheckListBox with the details from the database
+            Utils.LoadListBox(CLBdetails, sql, Stat); // populates the form CheckListBox with the details from the database
         }
 
         private void LoadSelectedDetails()
@@ -319,7 +323,7 @@ namespace GradeSystem
             string lName = "";
             string sql = "";
 
-            id = Utils.GetSelectedID(CLBDetails); // load and store the selected id from the User (CheckListBox)
+            id = Utils.GetSelectedID(CLBdetails); // load and store the selected id from the User (CheckListBox)
             sql = "select * from " + Stat + " where " + Stat + "id = '" + id + "'"; // query the database and store in a variable
 
             // if else statements that check and display information to the CheckListBox
@@ -347,41 +351,41 @@ namespace GradeSystem
                 }
             }
 
-            textBoxFirstName.Text = fName; // display the retrevied and stored information
-            textBoxLastName.Text = lName; // to the form's textboxes, in the curent case
+            TXTBoxFirstName.Text = fName; // display the retrevied and stored information
+            TXTBoxLastName.Text = lName; // to the form's textboxes, in the curent case
                                           // a student or a teacher's first and last name
 
         }
 
         private void LoadSelectedStudentGrade()
         {
-            string id = Utils.GetSelectedID(CLBDetails);
+            string id = Utils.GetSelectedID(CLBdetails);
             string sql = "Select m.ModName, g.TheGrade " +
                             "From Module m " +
                             "Join Grade g On g.ModID = m.ModID " +
                             "Where g.StudentID = '" + id + "'";
 
             // Clear the ClbModule items
-            CLBModules.Items.Clear();
+            CLBmodules.Items.Clear();
             var moduleInfo = Data.GetData<Module>(sql);
             var gradeInfo = Data.GetData<Grade>(sql);
             // Load data into ClbModule
-            Utils.LoadModListBox(CLBModules, moduleInfo, gradeInfo);
+            Utils.LoadModListBox(CLBmodules, moduleInfo, gradeInfo);
         }
 
         private void SetAddButtonStateNew()
         {
-            string buttonState = BtnAdd.Text;
+            string buttonState = BTNadd.Text;
             
 
             if (buttonState == "SAVE " + Stat)
             {
-                BtnAdd.Text = "NEW " + Stat;
+                BTNadd.Text = "NEW " + Stat;
 
                 SetTextBoxReadOnly(true);
 
-                textBoxFirstName.Text = ""; // clearing fields using an empty string
-                textBoxLastName.Clear(); // clearing fields using Clear() function
+                TXTBoxFirstName.Text = ""; // clearing fields using an empty string
+                TXTBoxLastName.Clear(); // clearing fields using Clear() function
             }
 
         }
@@ -389,23 +393,23 @@ namespace GradeSystem
 
         private void SetAddButtonStateSave()
         {
-            string buttonState = BtnAdd.Text;
+            string buttonState = BTNadd.Text;
             if (buttonState == "NEW " + Stat)
             {
-                Utils.UncheckListBoxItems(CLBDetails);
+                Utils.UncheckListBoxItems(CLBdetails);
                 LoadSelectedDetails();
                 LoadModules();
                 SetTextBoxReadOnly(false);
 
-                BtnAdd.Text = "SAVE " + Stat;
-                BtnAdd.Enabled = false; 
+                BTNadd.Text = "SAVE " + Stat;
+                BTNadd.Enabled = false; 
             }
         }
 
 
         private int AddTeacher()
         {
-            string sql = "insert into " + Stat + "(fName, lName) Values('" + textBoxFirstName.Text + "', '" + textBoxLastName.Text + "')";
+            string sql = "insert into " + Stat + "(fName, lName) Values('" + TXTBoxFirstName.Text + "', '" + TXTBoxLastName.Text + "')";
 
             int numRowsAffected = Data.ExecuteSqlNonQuery(sql);
 
@@ -416,8 +420,8 @@ namespace GradeSystem
         private int AddStudent() 
         {
             string storedProcedure = "SP_InsertStudent";
-            string fName = textBoxFirstName.Text;
-            string lName = textBoxLastName.Text;
+            string fName = TXTBoxFirstName.Text;
+            string lName = TXTBoxLastName.Text;
 
             Dictionary<string, object> spParams = new Dictionary<string, object> 
             {
@@ -434,20 +438,20 @@ namespace GradeSystem
         {
             if (listType == ListType.Detail)
             {
-                BtnUpdate.Enabled = state;
-                BtnDelete.Enabled = state;
+                BTNupdate.Enabled = state;
+                BTNdelete.Enabled = state;
             }
             else if (listType == ListType.Module)
             {
-                BTNUpdateMod.Enabled = state;   
-                BTNDeleteMod.Enabled = state;
+                BTNupdateMod.Enabled = state;   
+                BTNdeleteMod.Enabled = state;
             }
             else if (listType == ListType.Both)
             {
-                BtnUpdate.Enabled = state;
-                BtnDelete.Enabled = state;
-                BTNUpdateMod.Enabled = state;
-                BTNDeleteMod.Enabled = state;
+                BTNupdate.Enabled = state;
+                BTNdelete.Enabled = state;
+                BTNupdateMod.Enabled = state;
+                BTNdeleteMod.Enabled = state;
             }
 
         }
@@ -455,30 +459,30 @@ namespace GradeSystem
         private void SetTextBoxReadOnly(bool state)
         {
 
-            textBoxFirstName.ReadOnly = state;
-            textBoxLastName.ReadOnly = state;
+            TXTBoxFirstName.ReadOnly = state;
+            TXTBoxLastName.ReadOnly = state;
         }
 
         private void EnableAddButton(bool state) 
         {
-            BtnAdd.Enabled = state;
-            BTNAddMod.Enabled = state;
+            BTNadd.Enabled = state;
+            BTNaddMod.Enabled = state;
         }
 
         private void ShowStudentComponents(bool state)
         {
-            LBLGradeName.Visible = state;
-            textBoxGrade.Visible = state;
-            groupBoxBulk.Visible = state;
+            LBLgradeName.Visible = state;
+            TXTBoxGrade.Visible = state;
+            GBoxBulk.Visible = state;
         }
 
         private void LoadModules() 
         {
             string id = "0";
-            id = Utils.GetSelectedID(CLBDetails);
+            id = Utils.GetSelectedID(CLBdetails);
             string sql = "select * from Module where TeacherID = '" + id + "';";
 
-            Utils.LoadListBox(CLBModules, sql, Stat);
+            Utils.LoadListBox(CLBmodules, sql, Stat);
         }
 
         private void AssignModules() 
@@ -512,9 +516,9 @@ namespace GradeSystem
             Data.GenerateXmlFile<Module>(mods, Data.GetRootDir() + "\\Module\\modules.xml");
             }
 
-            LBLInfo.Text += "modules.xml file created \n";
+            LBLinfo.Text += "modules.xml file created \n";
             res = Data.InsertObjectsFromXml<Module>(Data.GetRootDir() + "\\Module\\modules.xml");
-            LBLInfo.Text += res;
+            LBLinfo.Text += res;
         }
 
         //private static Random random = new Random();
@@ -570,15 +574,13 @@ namespace GradeSystem
                 // Write grades to XML
                 Data.GenerateXmlFile(grades, xmlFilePath);
 
-                LBLInfo.ForeColor = Color.Green;
-                LBLInfo.Text += "Grades generated and saved to grades.csv and grades.xml. \n";
-                //LBLInfo.ForeColor = Color.Blue;
+                LBLinfo.ForeColor = Color.Green;
+                LBLinfo.Text += "Grades generated and saved to grades.csv and grades.xml. \n";
             }
             catch (Exception ex)
             {
-                LBLInfo.ForeColor = Color.Red;
-                LBLInfo.Text = "An error occurred: " + ex.Message + "\n";
-                //LBLInfo.ForeColor = Color.Blue;
+                LBLinfo.ForeColor = Color.Red;
+                LBLinfo.Text = "An error occurred: " + ex.Message + "\n";
             }
         }
 
@@ -619,6 +621,11 @@ namespace GradeSystem
             Detail,
             Module,
             Both
+        }
+
+        private void PANELInfo_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
