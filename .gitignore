@@ -9,8 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.mdf
-*.ldf
+C:\Users\i.ciobanu23\OneDrive\FIT\repos\!PROJECTS\GradeSystem\*.mdf
+C:\Users\i.ciobanu23\OneDrive\FIT\repos\!PROJECTS\GradeSystem\*.ldf
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
