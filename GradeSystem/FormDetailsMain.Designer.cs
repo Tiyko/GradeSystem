@@ -162,6 +162,7 @@
             this.BTNupdate.TabIndex = 19;
             this.BTNupdate.Text = "UPDATE";
             this.BTNupdate.UseVisualStyleBackColor = true;
+            this.BTNupdate.Click += new System.EventHandler(this.BTNupdate_Click);
             // 
             // BTNdelete
             // 
@@ -174,6 +175,7 @@
             this.BTNdelete.TabIndex = 20;
             this.BTNdelete.Text = "DELETE";
             this.BTNdelete.UseVisualStyleBackColor = true;
+            this.BTNdelete.Click += new System.EventHandler(this.BTNdelete_Click);
             // 
             // GB
             // 
@@ -229,20 +231,20 @@
             this.CLBmodules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBmodules_ItemCheck);
             this.CLBmodules.SelectedIndexChanged += new System.EventHandler(this.CLBmoduleDetails_SelectedIndexChanged);
             // 
-            // TXTBGrade
+            // TXTBgrade
             // 
             this.TXTBgrade.Location = new System.Drawing.Point(18, 429);
-            this.TXTBgrade.Name = "TXTBGrade";
+            this.TXTBgrade.Name = "TXTBgrade";
             this.TXTBgrade.ReadOnly = true;
             this.TXTBgrade.Size = new System.Drawing.Size(207, 26);
             this.TXTBgrade.TabIndex = 26;
             this.TXTBgrade.Visible = false;
             this.TXTBgrade.TextChanged += new System.EventHandler(this.TXTBgrade_TextChanged);
             // 
-            // TXTBModule
+            // TXTBmodule
             // 
             this.TXTBmodule.Location = new System.Drawing.Point(18, 366);
-            this.TXTBmodule.Name = "TXTBModule";
+            this.TXTBmodule.Name = "TXTBmodule";
             this.TXTBmodule.ReadOnly = true;
             this.TXTBmodule.Size = new System.Drawing.Size(207, 26);
             this.TXTBmodule.TabIndex = 25;

@@ -168,6 +168,20 @@ namespace GradeSystem
             }
         }
 
+        private void BTNupdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNdelete_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BTNaddMod_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void BTNupdateMod_Click(object sender, EventArgs e)
         {
 
@@ -245,12 +259,6 @@ namespace GradeSystem
             }
         }
 
-        private void BTNaddMod_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void TXTB_TextChanged(object sender, EventArgs e)
         {
             if ((TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0 &&
@@ -279,7 +287,6 @@ namespace GradeSystem
         {
 
         }
-
 
         private void LBLfile_Click(object sender, EventArgs e)
         {
@@ -439,6 +446,7 @@ namespace GradeSystem
             return numRowsAffected;
 
         }
+
 
         private void EnableUpdateDeleteButtons(bool state, ListType listType = ListType.Detail)
         {
@@ -628,5 +636,7 @@ namespace GradeSystem
             Module,
             Both
         }
+
+
     }
 }
