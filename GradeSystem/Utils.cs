@@ -23,7 +23,7 @@ namespace GradeSystem
 
             if (status == "TEACHER")
             {
-                if (ctrl.Name == "CLBDetails")
+                if (ctrl.Name == "CLBdetails")
                 {
                     var teacherInfo = Data.GetData<Teacher>(sql);
 
@@ -37,7 +37,7 @@ namespace GradeSystem
                     }
                 }
 
-                else if (ctrl.Name == "CLBModules")
+                else if (ctrl.Name == "CLBmodules")
                 {
                     var moduleInfo = Data.GetData<Module>(sql);
 
@@ -54,7 +54,7 @@ namespace GradeSystem
             }
             else if (status == "STUDENT")
             {
-                if (ctrl.Name == "CLBDetails")
+                if (ctrl.Name == "CLBdetails")
                 {
                     var studentInfo = Data.GetData<Student>(sql);
 

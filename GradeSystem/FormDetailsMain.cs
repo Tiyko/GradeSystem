@@ -83,19 +83,7 @@ namespace GradeSystem
             TXTBfile.Clear();
         }
 
-        private void CLBdetails_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadSelectedDetails();
-            if (Stat == "STUDENT")
-            {
-                LoadSelectedStudentGrade();
-            }
-            else
-            {
-                LoadModules();
-            }
-            SetAddButtonStateNew();
-        }
+
 
         private void CLBdetails_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -117,6 +105,20 @@ namespace GradeSystem
             {
                 EnableUpdateDeleteButtons(false);
             }
+        }
+
+        private void CLBdetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSelectedDetails();
+            if (Stat == "STUDENT")
+            {
+                LoadSelectedStudentGrade();
+            }
+            else
+            {
+                LoadModules();
+            }
+            SetAddButtonStateNew();
         }
 
         private void CLBmoduleDetails_SelectedIndexChanged(object sender, EventArgs e)
@@ -263,17 +265,17 @@ namespace GradeSystem
             }
         }
 
-        private void TXTBFile_TextChanged(object sender, EventArgs e)
+        private void TXTBfile_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void TXTBModule_TextChanged(object sender, EventArgs e)
+        private void TXTBmodule_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void TXTBGrade_TextChanged(object sender, EventArgs e)
+        private void TXTBgrade_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -298,7 +300,7 @@ namespace GradeSystem
         {
 
         }
-        private void LBLGradeName_Click(object sender, EventArgs e)
+        private void LBLgradeName_Click(object sender, EventArgs e)
         {
 
         }
@@ -476,7 +478,7 @@ namespace GradeSystem
         private void ShowStudentComponents(bool state)
         {
             LBLgradeName.Visible = state;
-            TXTBGrade.Visible = state;
+            TXTBgrade.Visible = state;
             GBBulk.Visible = state;
         }
 
