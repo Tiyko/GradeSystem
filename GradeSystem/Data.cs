@@ -261,7 +261,7 @@ namespace GradeSystem
 
                     if (rowsInserted > 0)
                     {
-                        res = $"{tableName} inserted successfully.";
+                        res = $"{tableName} inserted successfully. \n";
                     }
                 }
             }
@@ -439,7 +439,7 @@ namespace GradeSystem
 
                     if (rowsInserted > 0)
                     {
-                        res = $"{tableName} inserted successfully.";
+                        res = $"{tableName} inserted successfully. \n";
                     }
                 }
             }

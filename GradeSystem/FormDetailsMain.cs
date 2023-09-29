@@ -81,7 +81,14 @@ namespace GradeSystem
         private void CLBDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSelectedDetails();
-            LoadModules();
+            if (Stat == "STUDENT")
+            {
+                LoadSelectedStudentGrade();
+            }
+            else
+            {
+                LoadModules();
+            }
             SetAddButtonStateNew();
         }
 
@@ -345,17 +352,20 @@ namespace GradeSystem
 
         }
 
-        private void LoadSelectedStudentGrade() 
+        private void LoadSelectedStudentGrade()
         {
             string id = Utils.GetSelectedID(CLBDetails);
-            string sql = "select m.ModName, TheGrade from Module join Grade on g.ModID = m.ModID where g.StudentID = '" + id + "'";
+            string sql = "Select m.ModName, g.TheGrade " +
+                            "From Module m " +
+                            "Join Grade g On g.ModID = m.ModID " +
+                            "Where g.StudentID = '" + id + "'";
 
+            // Clear the ClbModule items
             CLBModules.Items.Clear();
-
-            var modInfo = Data.GetData<Module>(sql);
+            var moduleInfo = Data.GetData<Module>(sql);
             var gradeInfo = Data.GetData<Grade>(sql);
-
-            Utils.LoadListBox
+            // Load data into ClbModule
+            Utils.LoadModListBox(CLBModules, moduleInfo, gradeInfo);
         }
 
         private void SetAddButtonStateNew()
@@ -561,13 +571,13 @@ namespace GradeSystem
 
                 LBLInfo.ForeColor = Color.Green;
                 LBLInfo.Text += "Grades generated and saved to grades.csv and grades.xml. \n";
-                LBLInfo.ForeColor = Color.Blue;
+                //LBLInfo.ForeColor = Color.Blue;
             }
             catch (Exception ex)
             {
                 LBLInfo.ForeColor = Color.Red;
-                LBLInfo.Text += "An error occurred: " + ex.Message + "\n";
-                LBLInfo.ForeColor = Color.Blue;
+                LBLInfo.Text = "An error occurred: " + ex.Message + "\n";
+                //LBLInfo.ForeColor = Color.Blue;
             }
         }
 

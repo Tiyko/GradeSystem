@@ -39,7 +39,16 @@ namespace GradeSystem
 
                 else if (ctrl.Name == "CLBModules")
                 {
+                    var moduleInfo = Data.GetData<Module>(sql);
 
+                    foreach (var info in moduleInfo)
+                    {
+                        listBox.Items.Add(new Utils
+                        {
+                            Text = info.ModName,
+                            Value = info.ModID.ToString()
+                        });
+                    }
                 }
 
             }
@@ -59,31 +68,18 @@ namespace GradeSystem
                     }
                 }
 
-                else if (ctrl.Name == "CLBModules")
-                {
-                    var moduleInfo = Data.GetData<Module>(sql);
-
-                    foreach (var info in moduleInfo)
-                    {
-                        listBox.Items.Add(new Utils
-                        {
-                            Text = info.ModName,
-                            Value = info.ModID.ToString()
-                        });
-                    }
-                }
+                
             }
                  
         
         }
 
-        private void LoadModListBox(Control ctrl, List<Module> modInfo, List<Grade> gradeInfo) 
+        public static void LoadModListBox(Control ctrl, List<Module> modInfo, List<Grade> gradeInfo)
         {
             CheckedListBox listBox = (CheckedListBox)ctrl;
-
             listBox.DisplayMember = "Text";
             listBox.ValueMember = "Value";
-
+            listBox.Items.Clear();
 
             for (int i = 0; i < modInfo.Count; i++)
             {
@@ -92,7 +88,7 @@ namespace GradeSystem
 
                 listBox.Items.Add(new Utils
                 {
-                    Text = modName + ", Grade: " + grade,
+                    Text = $"{modName} (Grade: {grade})",
                     Value = modInfo[i].ModID.ToString()
                 });
             }
