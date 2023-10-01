@@ -2,58 +2,58 @@
 <Modules>
   <Module>
     <ModName>Maths</ModName>
-    <TeacherID>10</TeacherID>
+    <TeacherID>12</TeacherID>
   </Module>
   <Module>
     <ModName>English</ModName>
-    <TeacherID>9</TeacherID>
+    <TeacherID>11</TeacherID>
   </Module>
   <Module>
     <ModName>Irish</ModName>
-    <TeacherID>8</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Geography</ModName>
-    <TeacherID>7</TeacherID>
-  </Module>
-  <Module>
-    <ModName>History</ModName>
-    <TeacherID>6</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Computers</ModName>
-    <TeacherID>5</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Science</ModName>
-    <TeacherID>4</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Biology</ModName>
-    <TeacherID>3</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Art</ModName>
-    <TeacherID>2</TeacherID>
-  </Module>
-  <Module>
-    <ModName>PE</ModName>
-    <TeacherID>1</TeacherID>
-  </Module>
-  <Module>
-    <ModName>Music</ModName>
     <TeacherID>10</TeacherID>
   </Module>
   <Module>
-    <ModName>German</ModName>
+    <ModName>Geography</ModName>
     <TeacherID>9</TeacherID>
   </Module>
   <Module>
-    <ModName>Fench</ModName>
+    <ModName>History</ModName>
     <TeacherID>8</TeacherID>
   </Module>
   <Module>
-    <ModName>Technology</ModName>
+    <ModName>Computers</ModName>
     <TeacherID>7</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Science</ModName>
+    <TeacherID>6</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Biology</ModName>
+    <TeacherID>5</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Art</ModName>
+    <TeacherID>3</TeacherID>
+  </Module>
+  <Module>
+    <ModName>PE</ModName>
+    <TeacherID>2</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Music</ModName>
+    <TeacherID>1</TeacherID>
+  </Module>
+  <Module>
+    <ModName>German</ModName>
+    <TeacherID>12</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Fench</ModName>
+    <TeacherID>11</TeacherID>
+  </Module>
+  <Module>
+    <ModName>Technology</ModName>
+    <TeacherID>10</TeacherID>
   </Module>
 </Modules>

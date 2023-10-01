@@ -46,8 +46,13 @@ namespace GradeSystem
                 this.Text = "Teacher Details";
                 LBLperson.Text = "Select Teacher";
                 Stat = "TEACHER";
+
                 BTNadd.Text = "NEW TEACHER";
+                BTNupdate.Text = "UPDATE TEACHER";
+                BTNdelete.Text = "DELETE TEACHER";
+
                 BTNaddMod.Text = "NEW MODULE";
+
                 ShowStudentComponents(false);
 
                 TXTBfirstName.Clear();
@@ -58,7 +63,11 @@ namespace GradeSystem
                 this.Text = "Student Details";
                 LBLperson.Text = "Select Student";
                 Stat = "STUDENT";
+
                 BTNadd.Text = "NEW STUDENT";
+                BTNupdate.Text = "UPDATE STUDENT";
+                BTNdelete.Text = "DELETE STUDENT";
+
                 BTNaddMod.Text = "NEW GRADE";
                 ShowStudentComponents(true);
 
@@ -170,15 +179,99 @@ namespace GradeSystem
 
         private void BTNupdate_Click(object sender, EventArgs e)
         {
+            string buttonState = BTNupdate.Text;
+            int numRowsAffected = 0;
+
+
+
+
+            if (buttonState == "UPDATE " + Stat)
+            {
+
+
+                SetUpdateButtonStateSave();
+            }
+            else
+            {
+                if (Stat == "TEACHER")
+                    numRowsAffected = UpdateTeacher();
+                else
+                    numRowsAffected = UpdateStudent();
+
+                if (numRowsAffected > 0)
+                {
+                    MessageBox.Show(Stat + " has been updated.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    LoadPersonDetails(Stat);
+                    SetUpdateButtonStateUpdate();
+                }
+                else
+                {
+                    MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                }
+            }
 
         }
 
         private void BTNdelete_Click(object sender, EventArgs e)
         {
+            string buttonState = BTNdelete.Text;
+            int numRowsAffected = 0;
+
+                if (Stat == "TEACHER")
+                    numRowsAffected = DeleteTeacher();
+                else
+                    numRowsAffected = DeleteStudent();
+
+                if (numRowsAffected > 0)
+                {
+                    MessageBox.Show(Stat + " has been deleted.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                }
+                else
+                {
+                    MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                }
 
         }
+
         private void BTNaddMod_Click(object sender, EventArgs e)
         {
+            //string buttonState = BTNaddMod.Text;
+            //int numRowsAffected = 0;
+
+            
+
+
+
+
+            //if (buttonState == "NEW " + Stat)
+            //{
+
+
+            //    SetModuleButtonStateSave();
+            //}
+            //else
+            //{
+            //    if (Stat == "TEACHER")
+            //        numRowsAffected = AddModule();
+            //    else
+            //        numRowsAffected = UpdateStudent();
+
+            //    if (numRowsAffected > 0)
+            //    {
+            //        MessageBox.Show(Stat + " module has been updated.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            //        LoadPersonDetails(Stat);
+            //        SetModuleButtonStateNew();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            //    }
+            //}
 
         }
 
@@ -261,9 +354,7 @@ namespace GradeSystem
 
         private void TXTB_TextChanged(object sender, EventArgs e)
         {
-            if ((TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0 &&
-                BTNadd.Text == "SAVE " + Stat) ||
-                BTNadd.Text == "NEW " + Stat)
+            if ((TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0 && BTNadd.Text == "SAVE " + Stat) || BTNadd.Text == "NEW " + Stat)
             {
                 EnableAddButton(true);
             }
@@ -419,6 +510,70 @@ namespace GradeSystem
             }
         }
 
+        private void SetUpdateButtonStateUpdate()
+        {
+            string buttonState = BTNupdate.Text;
+
+
+            if (buttonState == "SAVE " + Stat)
+            {
+                BTNupdate.Text = "UPDATE " + Stat;
+
+                SetTextBoxReadOnly(true);
+
+                TXTBfirstName.Text = ""; // clearing fields using an empty string
+                TXTBlastName.Clear(); // clearing fields using Clear() function
+            }
+        }
+
+        private void SetUpdateButtonStateSave()
+        {
+            string buttonState = BTNupdate.Text;
+            if (buttonState == "UPDATE " + Stat)
+            {
+                LoadSelectedDetails();
+                LoadModules();
+                SetTextBoxReadOnly(false);
+
+                BTNupdate.Text = "SAVE " + Stat;
+                BTNupdate.Enabled = true;
+
+                BTNadd.Enabled = false;
+                BTNdelete.Enabled = false;
+
+            }
+        }
+
+        //private void SetModuleButtonStateNew() 
+        //{
+        //    string buttonState = BTNaddMod.Text;
+
+
+        //    if (buttonState == "SAVE")
+        //    {
+        //        BTNaddMod.Text = "NEW MODULE";
+
+        //        SetTXTBmoduleReadOnly(true);
+
+        //        TXTBmodule.Clear(); // clearing fields using Clear() function
+        //    }
+        //}
+        //private void SetModuleButtonStateSave() 
+        //{
+        //    string buttonState = BTNaddMod.Text;
+        //    if (buttonState == "NEW MODULE")
+        //    {
+        //        LoadSelectedDetails();
+        //        LoadModules();
+        //        SetTXTBmoduleReadOnly(false);
+
+        //        BTNaddMod.Text = "SAVE";
+        //        BTNaddMod.Enabled = true;
+
+        //        BTNupdateMod.Enabled = false;
+        //        BTNdeleteMod.Enabled = false;
+        //    }
+        //}
 
         private int AddTeacher()
         {
@@ -436,16 +591,102 @@ namespace GradeSystem
             string fName = TXTBfirstName.Text;
             string lName = TXTBlastName.Text;
 
+
             Dictionary<string, object> spParams = new Dictionary<string, object> 
             {
                 { "@FirstName", fName },
-                { "@LastName", lName }
+                { "@LastName", lName },
             };
 
             int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
             return numRowsAffected;
 
         }
+
+        private int UpdateTeacher()
+        {
+            string storedProcedure = "SP_UpdateTeacher";
+            string fName = TXTBfirstName.Text;
+            string lName = TXTBlastName.Text;
+            string idTeacher = Utils.GetSelectedID(CLBdetails); 
+
+            Dictionary<string, object> spParams = new Dictionary<string, object>
+            {
+                { "@FirstName", fName },
+                { "@LastName", lName },
+                { "@TeacherID", idTeacher }
+            };
+
+            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
+            return numRowsAffected;
+        }
+
+        private int UpdateStudent()
+        {
+            string storedProcedure = "SP_UpdateStudent";
+            string fName = TXTBfirstName.Text;
+            string lName = TXTBlastName.Text;
+            string idStudent = Utils.GetSelectedID(CLBdetails);
+
+
+            Dictionary<string, object> spParams = new Dictionary<string, object>
+            {
+                { "@FirstName", fName },
+                { "@LastName", lName },
+                { "@StudentID", idStudent}
+            };
+
+            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
+            return numRowsAffected;
+        }
+
+
+        private int DeleteTeacher()
+        {
+            string storedProcedure = "SP_DeleteTeacher";
+
+            string idTeacher = Utils.GetSelectedID(CLBdetails);
+
+
+            Dictionary<string, object> spParams = new Dictionary<string, object>
+            {
+                { "@TeacherID", idTeacher }
+            };
+
+            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
+            return numRowsAffected;
+        }
+        private int DeleteStudent()
+        {
+            string storedProcedure = "SP_DeleteStudent";
+
+            string idStudent = Utils.GetSelectedID(CLBdetails);
+
+
+            Dictionary<string, object> spParams = new Dictionary<string, object>
+            {
+                { "@StudentID", idStudent }
+            };
+
+            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
+            return numRowsAffected;
+        }
+
+        //private int AddModule()
+        //{
+        //    string storedProcedure = "SP_InsertModule";
+        //    string modName = TXTBmodule.Text;
+        //    string idTeacher = Utils.GetSelectedID(CLBdetails);
+
+        //    Dictionary<string, object> spParams = new Dictionary<string, object>
+        //    {
+        //        { "@TeacherID", idTeacher },
+        //        { "@ModName", modName}
+        //    };
+
+        //    int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
+        //    return numRowsAffected;
+        //}
 
 
         private void EnableUpdateDeleteButtons(bool state, ListType listType = ListType.Detail)
@@ -475,9 +716,15 @@ namespace GradeSystem
 
             TXTBfirstName.ReadOnly = state;
             TXTBlastName.ReadOnly = state;
+            
         }
 
-        private void EnableAddButton(bool state) 
+        private void SetTXTBmoduleReadOnly(bool state) 
+        {
+            TXTBmodule.ReadOnly = state;
+        }
+
+        private void EnableAddButton(bool state)
         {
             BTNadd.Enabled = state;
             BTNaddMod.Enabled = state;

@@ -155,12 +155,12 @@
             // 
             this.BTNupdate.Enabled = false;
             this.BTNupdate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNupdate.Location = new System.Drawing.Point(942, 19);
+            this.BTNupdate.Location = new System.Drawing.Point(783, 18);
             this.BTNupdate.Margin = new System.Windows.Forms.Padding(4);
             this.BTNupdate.Name = "BTNupdate";
-            this.BTNupdate.Size = new System.Drawing.Size(74, 24);
+            this.BTNupdate.Size = new System.Drawing.Size(156, 24);
             this.BTNupdate.TabIndex = 19;
-            this.BTNupdate.Text = "UPDATE";
+            this.BTNupdate.Text = "UPDATE TEACHER";
             this.BTNupdate.UseVisualStyleBackColor = true;
             this.BTNupdate.Click += new System.EventHandler(this.BTNupdate_Click);
             // 
@@ -168,12 +168,12 @@
             // 
             this.BTNdelete.Enabled = false;
             this.BTNdelete.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNdelete.Location = new System.Drawing.Point(1024, 19);
+            this.BTNdelete.Location = new System.Drawing.Point(947, 19);
             this.BTNdelete.Margin = new System.Windows.Forms.Padding(4);
             this.BTNdelete.Name = "BTNdelete";
-            this.BTNdelete.Size = new System.Drawing.Size(74, 24);
+            this.BTNdelete.Size = new System.Drawing.Size(136, 24);
             this.BTNdelete.TabIndex = 20;
-            this.BTNdelete.Text = "DELETE";
+            this.BTNdelete.Text = "DELETE TEACHER";
             this.BTNdelete.UseVisualStyleBackColor = true;
             this.BTNdelete.Click += new System.EventHandler(this.BTNdelete_Click);
             // 
