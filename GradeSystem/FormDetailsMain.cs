@@ -11,6 +11,8 @@ namespace GradeSystem
     {
         // Fields
         public string Stat = "TEACHER";
+        public string ID = "0";
+        public string ModID = "0";
 
 
         // Constructor
@@ -41,6 +43,10 @@ namespace GradeSystem
 
         private void RBstatus_CheckedChanged(object sender, EventArgs e)
         {
+            
+            ID = "0";
+            ModID = "0";
+
             if (RBteacher.Checked)
             {
                 this.Text = "Teacher Details";
@@ -49,11 +55,10 @@ namespace GradeSystem
 
                 BTNadd.Text = "NEW TEACHER";
                 BTNupdate.Text = "UPDATE TEACHER";
-                BTNdelete.Text = "DELETE TEACHER";
 
-                BTNaddMod.Text = "NEW MODULE";
 
                 ShowStudentComponents(false);
+                LoadSelectedStudentGrade();
 
                 TXTBfirstName.Clear();
                 TXTBlastName.Clear();
@@ -66,10 +71,9 @@ namespace GradeSystem
 
                 BTNadd.Text = "NEW STUDENT";
                 BTNupdate.Text = "UPDATE STUDENT";
-                BTNdelete.Text = "DELETE STUDENT";
 
-                BTNaddMod.Text = "NEW GRADE";
                 ShowStudentComponents(true);
+                LoadModules();
 
                 TXTBfirstName.Clear();
                 TXTBlastName.Clear();
@@ -77,6 +81,7 @@ namespace GradeSystem
 
             EnableAddButton(true);
             SetTextBoxReadOnly(true);
+            Utils.ClearAllFields(this);
             EnableUpdateDeleteButtons(false, ListType.Both);
             LoadPersonDetails(Stat);
 
@@ -94,9 +99,21 @@ namespace GradeSystem
 
 
 
-        private void CLBdetails_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void CLB_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CheckedListBox listBox = (CheckedListBox)sender;
+
+            string clbName = listBox.Name;
+            ListType lType = ListType.Detail;
+
+            if (clbName == "CLBdetails")
+            {
+                lType = ListType.Detail;
+            }
+            else if (clbName == "CLBmodules") 
+            { 
+                lType = ListType.Module;
+            }
 
             // Programatically uncheck the previously checked checkbox when the user 
             // checks another one. This means there will always be a maximum of
@@ -108,11 +125,11 @@ namespace GradeSystem
                 {
                     listBox.SetItemChecked(i, false);
                 }
-                EnableUpdateDeleteButtons(true);
+                EnableUpdateDeleteButtons(true, lType);
             }
             else
             {
-                EnableUpdateDeleteButtons(false);
+                EnableUpdateDeleteButtons(false, lType);
             }
         }
 
@@ -132,14 +149,7 @@ namespace GradeSystem
 
         private void CLBmoduleDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-
-
-        private void CLBmodules_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-
+            LoadSelectedModuleDetails();
         }
 
         private void BTNadd_Click(object sender, EventArgs e)
@@ -179,6 +189,33 @@ namespace GradeSystem
 
         private void BTNupdate_Click(object sender, EventArgs e)
         {
+
+            //int res = 0;
+            //string sql = "";
+
+
+            //if (TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0)
+            //{
+            //    ID = Utils.GetSelectedID(CLBdetails);
+            //    sql = "update " + Stat + " set fName = '" + TXTBfirstName.Text + "' " +
+            //            "lName = " + TXTBlastName + "' " + "where " + Stat + "ID = '" + ID + "'";
+
+            //}
+            //else
+            //{
+            //    LBLinfo.ForeColor = Color.Red;
+            //    LBLinfo.Text = "Please make sure first and last name fields are populated";
+            //}
+
+            //res = Data.ExecuteSqlNonQuery(sql);
+            //LoadPersonDetails(Stat);
+            //Utils.ClearAllFields(this);
+
+
+
+
+
+
             string buttonState = BTNupdate.Text;
             int numRowsAffected = 0;
 
@@ -211,77 +248,6 @@ namespace GradeSystem
 
                 }
             }
-
-        }
-
-        private void BTNdelete_Click(object sender, EventArgs e)
-        {
-            string buttonState = BTNdelete.Text;
-            int numRowsAffected = 0;
-
-                if (Stat == "TEACHER")
-                    numRowsAffected = DeleteTeacher();
-                else
-                    numRowsAffected = DeleteStudent();
-
-                if (numRowsAffected > 0)
-                {
-                    MessageBox.Show(Stat + " has been deleted.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                }
-                else
-                {
-                    MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                }
-
-        }
-
-        private void BTNaddMod_Click(object sender, EventArgs e)
-        {
-            //string buttonState = BTNaddMod.Text;
-            //int numRowsAffected = 0;
-
-            
-
-
-
-
-            //if (buttonState == "NEW " + Stat)
-            //{
-
-
-            //    SetModuleButtonStateSave();
-            //}
-            //else
-            //{
-            //    if (Stat == "TEACHER")
-            //        numRowsAffected = AddModule();
-            //    else
-            //        numRowsAffected = UpdateStudent();
-
-            //    if (numRowsAffected > 0)
-            //    {
-            //        MessageBox.Show(Stat + " module has been updated.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-            //        LoadPersonDetails(Stat);
-            //        SetModuleButtonStateNew();
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-            //    }
-            //}
-
-        }
-
-        private void BTNupdateMod_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BTNdeleteMod_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -364,53 +330,7 @@ namespace GradeSystem
             }
         }
 
-        private void TXTBfile_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void TXTBmodule_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TXTBgrade_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LBLfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LBLmodName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LBLinfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LBLperson_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void LBLgradeName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GBBulk_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void PANELinfo_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         // Helper Methods
         public void LoadPersonDetails(string personType) // function to query the database and select a table depending on necessity
@@ -461,20 +381,97 @@ namespace GradeSystem
 
         }
 
+
+        private void LoadSelectedModuleDetails()
+        {
+            string modName = "";
+            string grade = "";
+            string sql = "";
+
+            ID = Utils.GetSelectedID(CLBdetails);
+            ModID = Utils.GetSelectedID(CLBmodules);
+            if (ModID != "")
+            {
+                sql = "select ModName from Module where ModID = '" + ModID + "'";
+                modName = Data.ExecuteSqlScalar(sql);
+                TXTBmodule.Text = modName;
+
+                if (Stat == "STUDENT")
+                {
+                    sql = "select TheGrade from Grade where ModID = '" + ModID + "' " +
+                        "and StudentID = '" + ID + "'";
+                    grade = Data.ExecuteSqlScalar(sql);
+                    TXTBgrade.Text = grade;
+                }
+            }
+            else
+            {
+                TXTBmodule.Text = "";
+                TXTBgrade.Text = "";
+            }
+        }
+
+
         private void LoadSelectedStudentGrade()
         {
             string id = Utils.GetSelectedID(CLBdetails);
-            string sql = "Select m.ModName, g.TheGrade " +
+            string sql = "Select m.ModID, m.ModName, g.TheGrade " +
                             "From Module m " +
                             "Join Grade g On g.ModID = m.ModID " +
                             "Where g.StudentID = '" + id + "'";
 
             // Clear the CLBModule items
             CLBmodules.Items.Clear();
+            TXTBgrade.Text = "";
+            TXTBmodule.Text = "";
             var moduleInfo = Data.GetData<Module>(sql);
             var gradeInfo = Data.GetData<Grade>(sql);
             // Load data into CLBModule
             Utils.LoadModListBox(CLBmodules, moduleInfo, gradeInfo);
+            CalculateGPA();
+        }
+
+        private void CalculateGPA()
+        {
+            ID = Utils.GetSelectedID(CLBdetails);
+            string sql = "select TheGrade From Grade where StudentID = '" + ID + "'";
+
+            var gradeInfo = Data.GetData<Grade>(sql);
+            int qty = gradeInfo.Count;
+
+            string letter = "";
+
+            double totalPoints = 0.00D;
+
+            foreach (var grade in gradeInfo)
+            {
+                letter = grade.TheGrade;
+                switch (letter)
+                {
+                    case "A":
+                        totalPoints += 4.00;
+                        break;
+                    case "B":
+                        totalPoints += 4.00;
+                        break;
+                    case "C":
+                        totalPoints += 3.00;
+                        break;
+                    case "D":
+                        totalPoints += 2.00;
+                        break;
+                    case "E":
+                        totalPoints += 0.00;
+                        break;
+                    case "F":
+                        totalPoints += 0.00;
+                        break;
+                }
+            }
+
+            double gpa = totalPoints / qty;
+
+            LBLgpa.Text = $"GPA: {gpa:F2}";
         }
 
         private void SetAddButtonStateNew()
@@ -501,6 +498,8 @@ namespace GradeSystem
             if (buttonState == "NEW " + Stat)
             {
                 Utils.UncheckListBoxItems(CLBdetails);
+                Utils.ClearAllFields(this);
+
                 LoadSelectedDetails();
                 LoadModules();
                 SetTextBoxReadOnly(false);
@@ -539,41 +538,9 @@ namespace GradeSystem
                 BTNupdate.Enabled = true;
 
                 BTNadd.Enabled = false;
-                BTNdelete.Enabled = false;
 
             }
         }
-
-        //private void SetModuleButtonStateNew() 
-        //{
-        //    string buttonState = BTNaddMod.Text;
-
-
-        //    if (buttonState == "SAVE")
-        //    {
-        //        BTNaddMod.Text = "NEW MODULE";
-
-        //        SetTXTBmoduleReadOnly(true);
-
-        //        TXTBmodule.Clear(); // clearing fields using Clear() function
-        //    }
-        //}
-        //private void SetModuleButtonStateSave() 
-        //{
-        //    string buttonState = BTNaddMod.Text;
-        //    if (buttonState == "NEW MODULE")
-        //    {
-        //        LoadSelectedDetails();
-        //        LoadModules();
-        //        SetTXTBmoduleReadOnly(false);
-
-        //        BTNaddMod.Text = "SAVE";
-        //        BTNaddMod.Enabled = true;
-
-        //        BTNupdateMod.Enabled = false;
-        //        BTNdeleteMod.Enabled = false;
-        //    }
-        //}
 
         private int AddTeacher()
         {
@@ -641,93 +608,38 @@ namespace GradeSystem
         }
 
 
-        private int DeleteTeacher()
-        {
-            string storedProcedure = "SP_DeleteTeacher";
-
-            string idTeacher = Utils.GetSelectedID(CLBdetails);
-
-
-            Dictionary<string, object> spParams = new Dictionary<string, object>
-            {
-                { "@TeacherID", idTeacher }
-            };
-
-            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
-            return numRowsAffected;
-        }
-        private int DeleteStudent()
-        {
-            string storedProcedure = "SP_DeleteStudent";
-
-            string idStudent = Utils.GetSelectedID(CLBdetails);
-
-
-            Dictionary<string, object> spParams = new Dictionary<string, object>
-            {
-                { "@StudentID", idStudent }
-            };
-
-            int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
-            return numRowsAffected;
-        }
-
-        //private int AddModule()
-        //{
-        //    string storedProcedure = "SP_InsertModule";
-        //    string modName = TXTBmodule.Text;
-        //    string idTeacher = Utils.GetSelectedID(CLBdetails);
-
-        //    Dictionary<string, object> spParams = new Dictionary<string, object>
-        //    {
-        //        { "@TeacherID", idTeacher },
-        //        { "@ModName", modName}
-        //    };
-
-        //    int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
-        //    return numRowsAffected;
-        //}
-
-
         private void EnableUpdateDeleteButtons(bool state, ListType listType = ListType.Detail)
         {
             if (listType == ListType.Detail)
             {
                 BTNupdate.Enabled = state;
-                BTNdelete.Enabled = state;
+                TXTBfirstName.ReadOnly = !state;
+                TXTBlastName.ReadOnly = !state;
+                
             }
             else if (listType == ListType.Module)
             {
-                BTNupdateMod.Enabled = state;   
-                BTNdeleteMod.Enabled = state;
+                TXTBmodule.ReadOnly = !state;
+                TXTBgrade.ReadOnly = !state;
+
             }
             else if (listType == ListType.Both)
             {
                 BTNupdate.Enabled = state;
-                BTNdelete.Enabled = state;
-                BTNupdateMod.Enabled = state;
-                BTNdeleteMod.Enabled = state;
+                TXTBfirstName.ReadOnly = !state;
+                TXTBlastName.ReadOnly = !state;
             }
-
         }
 
         private void SetTextBoxReadOnly(bool state)
         {
-
             TXTBfirstName.ReadOnly = state;
             TXTBlastName.ReadOnly = state;
-            
-        }
-
-        private void SetTXTBmoduleReadOnly(bool state) 
-        {
-            TXTBmodule.ReadOnly = state;
         }
 
         private void EnableAddButton(bool state)
         {
             BTNadd.Enabled = state;
-            BTNaddMod.Enabled = state;
         }
 
         private void ShowStudentComponents(bool state)
@@ -861,20 +773,6 @@ namespace GradeSystem
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Enums - enumerations - means specific list
         // In C# enums are a special type of class. Its values represent a group of constant fields(variables)
         enum ListType
@@ -883,7 +781,6 @@ namespace GradeSystem
             Module,
             Both
         }
-
 
     }
 }

@@ -119,9 +119,8 @@ namespace GradeSystem
             return num;
         }
 
-        // POLYMORPHISM - 
-        // an overloaded method to allow inserts, updates and deletes allowing us
-        // to use stored procedures
+        // POLYMORPHISM - an overloaded method to allow inserts, updates and deletes allowing us
+        //                to use stored procedures
 
         public static int ExecuteSqlNonQuery(string sqlGetAndStoredProcedures, Dictionary<string, object> parameters = null, CommandType cmdType = CommandType.Text)
         {

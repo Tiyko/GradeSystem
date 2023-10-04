@@ -37,7 +37,6 @@
             this.TXTBlastName = new System.Windows.Forms.TextBox();
             this.BTNadd = new System.Windows.Forms.Button();
             this.BTNupdate = new System.Windows.Forms.Button();
-            this.BTNdelete = new System.Windows.Forms.Button();
             this.GB = new System.Windows.Forms.GroupBox();
             this.RBteacher = new System.Windows.Forms.RadioButton();
             this.RBstudent = new System.Windows.Forms.RadioButton();
@@ -53,12 +52,10 @@
             this.LBLfile = new System.Windows.Forms.Label();
             this.RBcsv = new System.Windows.Forms.RadioButton();
             this.RBxml = new System.Windows.Forms.RadioButton();
-            this.BTNdeleteMod = new System.Windows.Forms.Button();
-            this.BTNupdateMod = new System.Windows.Forms.Button();
-            this.BTNaddMod = new System.Windows.Forms.Button();
             this.LBLinfo = new System.Windows.Forms.Label();
             this.PANELinfo = new System.Windows.Forms.Panel();
             this.LBLinfoPanel = new System.Windows.Forms.Label();
+            this.LBLgpa = new System.Windows.Forms.Label();
             this.GB.SuspendLayout();
             this.GBBulk.SuspendLayout();
             this.PANELinfo.SuspendLayout();
@@ -80,25 +77,24 @@
             this.LBLperson.AutoSize = true;
             this.LBLperson.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLperson.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.LBLperson.Location = new System.Drawing.Point(545, 24);
+            this.LBLperson.Location = new System.Drawing.Point(544, 3);
             this.LBLperson.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LBLperson.Name = "LBLperson";
             this.LBLperson.Size = new System.Drawing.Size(170, 23);
             this.LBLperson.TabIndex = 6;
             this.LBLperson.Text = "Select Teacher";
-            this.LBLperson.Click += new System.EventHandler(this.LBLperson_Click);
             // 
             // CLBdetails
             // 
             this.CLBdetails.CheckOnClick = true;
             this.CLBdetails.ColumnWidth = 200;
             this.CLBdetails.FormattingEnabled = true;
-            this.CLBdetails.Location = new System.Drawing.Point(231, 50);
+            this.CLBdetails.Location = new System.Drawing.Point(231, 29);
             this.CLBdetails.MultiColumn = true;
             this.CLBdetails.Name = "CLBdetails";
-            this.CLBdetails.Size = new System.Drawing.Size(867, 277);
+            this.CLBdetails.Size = new System.Drawing.Size(867, 298);
             this.CLBdetails.TabIndex = 7;
-            this.CLBdetails.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBdetails_ItemCheck);
+            this.CLBdetails.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLB_ItemCheck);
             this.CLBdetails.SelectedIndexChanged += new System.EventHandler(this.CLBdetails_SelectedIndexChanged);
             // 
             // LBLfirstName
@@ -142,7 +138,7 @@
             // BTNadd
             // 
             this.BTNadd.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNadd.Location = new System.Drawing.Point(231, 18);
+            this.BTNadd.Location = new System.Drawing.Point(110, 73);
             this.BTNadd.Margin = new System.Windows.Forms.Padding(4);
             this.BTNadd.Name = "BTNadd";
             this.BTNadd.Size = new System.Drawing.Size(114, 25);
@@ -155,7 +151,7 @@
             // 
             this.BTNupdate.Enabled = false;
             this.BTNupdate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNupdate.Location = new System.Drawing.Point(783, 18);
+            this.BTNupdate.Location = new System.Drawing.Point(68, 106);
             this.BTNupdate.Margin = new System.Windows.Forms.Padding(4);
             this.BTNupdate.Name = "BTNupdate";
             this.BTNupdate.Size = new System.Drawing.Size(156, 24);
@@ -163,19 +159,6 @@
             this.BTNupdate.Text = "UPDATE TEACHER";
             this.BTNupdate.UseVisualStyleBackColor = true;
             this.BTNupdate.Click += new System.EventHandler(this.BTNupdate_Click);
-            // 
-            // BTNdelete
-            // 
-            this.BTNdelete.Enabled = false;
-            this.BTNdelete.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNdelete.Location = new System.Drawing.Point(947, 19);
-            this.BTNdelete.Margin = new System.Windows.Forms.Padding(4);
-            this.BTNdelete.Name = "BTNdelete";
-            this.BTNdelete.Size = new System.Drawing.Size(136, 24);
-            this.BTNdelete.TabIndex = 20;
-            this.BTNdelete.Text = "DELETE TEACHER";
-            this.BTNdelete.UseVisualStyleBackColor = true;
-            this.BTNdelete.Click += new System.EventHandler(this.BTNdelete_Click);
             // 
             // GB
             // 
@@ -226,9 +209,9 @@
             this.CLBmodules.Location = new System.Drawing.Point(231, 342);
             this.CLBmodules.MultiColumn = true;
             this.CLBmodules.Name = "CLBmodules";
-            this.CLBmodules.Size = new System.Drawing.Size(529, 130);
+            this.CLBmodules.Size = new System.Drawing.Size(529, 151);
             this.CLBmodules.TabIndex = 22;
-            this.CLBmodules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBmodules_ItemCheck);
+            this.CLBmodules.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLB_ItemCheck);
             this.CLBmodules.SelectedIndexChanged += new System.EventHandler(this.CLBmoduleDetails_SelectedIndexChanged);
             // 
             // TXTBgrade
@@ -239,7 +222,6 @@
             this.TXTBgrade.Size = new System.Drawing.Size(207, 26);
             this.TXTBgrade.TabIndex = 26;
             this.TXTBgrade.Visible = false;
-            this.TXTBgrade.TextChanged += new System.EventHandler(this.TXTBgrade_TextChanged);
             // 
             // TXTBmodule
             // 
@@ -248,7 +230,6 @@
             this.TXTBmodule.ReadOnly = true;
             this.TXTBmodule.Size = new System.Drawing.Size(207, 26);
             this.TXTBmodule.TabIndex = 25;
-            this.TXTBmodule.TextChanged += new System.EventHandler(this.TXTBmodule_TextChanged);
             // 
             // LBLgradeName
             // 
@@ -260,7 +241,6 @@
             this.LBLgradeName.TabIndex = 24;
             this.LBLgradeName.Text = "Grade:";
             this.LBLgradeName.Visible = false;
-            this.LBLgradeName.Click += new System.EventHandler(this.LBLgradeName_Click);
             // 
             // LBLmodName
             // 
@@ -271,7 +251,6 @@
             this.LBLmodName.Size = new System.Drawing.Size(122, 18);
             this.LBLmodName.TabIndex = 23;
             this.LBLmodName.Text = "Module Name: ";
-            this.LBLmodName.Click += new System.EventHandler(this.LBLmodName_Click);
             // 
             // GBBulk
             // 
@@ -288,7 +267,6 @@
             this.GBBulk.TabStop = false;
             this.GBBulk.Text = "Bulk Imports";
             this.GBBulk.Visible = false;
-            this.GBBulk.Enter += new System.EventHandler(this.GBBulk_Enter);
             // 
             // BTNimport
             // 
@@ -308,7 +286,6 @@
             this.TXTBfile.ReadOnly = true;
             this.TXTBfile.Size = new System.Drawing.Size(226, 26);
             this.TXTBfile.TabIndex = 28;
-            this.TXTBfile.TextChanged += new System.EventHandler(this.TXTBfile_TextChanged);
             // 
             // BTNfile
             // 
@@ -330,7 +307,6 @@
             this.LBLfile.Size = new System.Drawing.Size(82, 18);
             this.LBLfile.TabIndex = 28;
             this.LBLfile.Text = "Select File";
-            this.LBLfile.Click += new System.EventHandler(this.LBLfile_Click);
             // 
             // RBcsv
             // 
@@ -356,44 +332,6 @@
             this.RBxml.UseVisualStyleBackColor = true;
             this.RBxml.CheckedChanged += new System.EventHandler(this.RBxml_CheckedChanged);
             // 
-            // BTNdeleteMod
-            // 
-            this.BTNdeleteMod.Enabled = false;
-            this.BTNdeleteMod.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNdeleteMod.Location = new System.Drawing.Point(695, 474);
-            this.BTNdeleteMod.Margin = new System.Windows.Forms.Padding(4);
-            this.BTNdeleteMod.Name = "BTNdeleteMod";
-            this.BTNdeleteMod.Size = new System.Drawing.Size(65, 24);
-            this.BTNdeleteMod.TabIndex = 30;
-            this.BTNdeleteMod.Text = "DELETE";
-            this.BTNdeleteMod.UseVisualStyleBackColor = true;
-            this.BTNdeleteMod.Click += new System.EventHandler(this.BTNdeleteMod_Click);
-            // 
-            // BTNupdateMod
-            // 
-            this.BTNupdateMod.Enabled = false;
-            this.BTNupdateMod.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNupdateMod.Location = new System.Drawing.Point(617, 476);
-            this.BTNupdateMod.Margin = new System.Windows.Forms.Padding(4);
-            this.BTNupdateMod.Name = "BTNupdateMod";
-            this.BTNupdateMod.Size = new System.Drawing.Size(70, 21);
-            this.BTNupdateMod.TabIndex = 29;
-            this.BTNupdateMod.Text = "UPDATE";
-            this.BTNupdateMod.UseVisualStyleBackColor = true;
-            this.BTNupdateMod.Click += new System.EventHandler(this.BTNupdateMod_Click);
-            // 
-            // BTNaddMod
-            // 
-            this.BTNaddMod.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNaddMod.Location = new System.Drawing.Point(231, 474);
-            this.BTNaddMod.Margin = new System.Windows.Forms.Padding(4);
-            this.BTNaddMod.Name = "BTNaddMod";
-            this.BTNaddMod.Size = new System.Drawing.Size(108, 26);
-            this.BTNaddMod.TabIndex = 28;
-            this.BTNaddMod.Text = "NEW MODULE";
-            this.BTNaddMod.UseVisualStyleBackColor = true;
-            this.BTNaddMod.Click += new System.EventHandler(this.BTNaddMod_Click);
-            // 
             // LBLinfo
             // 
             this.LBLinfo.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -405,7 +343,6 @@
             this.LBLinfo.Name = "LBLinfo";
             this.LBLinfo.Size = new System.Drawing.Size(0, 16);
             this.LBLinfo.TabIndex = 31;
-            this.LBLinfo.Click += new System.EventHandler(this.LBLinfo_Click);
             // 
             // PANELinfo
             // 
@@ -416,7 +353,6 @@
             this.PANELinfo.Name = "PANELinfo";
             this.PANELinfo.Size = new System.Drawing.Size(960, 145);
             this.PANELinfo.TabIndex = 33;
-            this.PANELinfo.Paint += new System.Windows.Forms.PaintEventHandler(this.PANELinfo_Paint);
             // 
             // LBLinfoPanel
             // 
@@ -429,15 +365,23 @@
             this.LBLinfoPanel.TabIndex = 33;
             this.LBLinfoPanel.Text = "Information:";
             // 
+            // LBLgpa
+            // 
+            this.LBLgpa.AutoSize = true;
+            this.LBLgpa.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLgpa.ForeColor = System.Drawing.Color.PaleGreen;
+            this.LBLgpa.Location = new System.Drawing.Point(59, 276);
+            this.LBLgpa.Name = "LBLgpa";
+            this.LBLgpa.Size = new System.Drawing.Size(0, 18);
+            this.LBLgpa.TabIndex = 34;
+            // 
             // FormDetailsMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1111, 656);
+            this.Controls.Add(this.LBLgpa);
             this.Controls.Add(this.PANELinfo);
-            this.Controls.Add(this.BTNdeleteMod);
-            this.Controls.Add(this.BTNupdateMod);
-            this.Controls.Add(this.BTNaddMod);
             this.Controls.Add(this.GBBulk);
             this.Controls.Add(this.TXTBgrade);
             this.Controls.Add(this.TXTBmodule);
@@ -445,7 +389,6 @@
             this.Controls.Add(this.LBLmodName);
             this.Controls.Add(this.CLBmodules);
             this.Controls.Add(this.GB);
-            this.Controls.Add(this.BTNdelete);
             this.Controls.Add(this.BTNupdate);
             this.Controls.Add(this.BTNadd);
             this.Controls.Add(this.TXTBlastName);
@@ -482,7 +425,6 @@
         private System.Windows.Forms.TextBox TXTBlastName;
         private System.Windows.Forms.Button BTNadd;
         private System.Windows.Forms.Button BTNupdate;
-        private System.Windows.Forms.Button BTNdelete;
         private System.Windows.Forms.GroupBox GB;
         private System.Windows.Forms.RadioButton RBteacher;
         private System.Windows.Forms.RadioButton RBstudent;
@@ -498,11 +440,9 @@
         private System.Windows.Forms.Button BTNfile;
         private System.Windows.Forms.Button BTNimport;
         private System.Windows.Forms.TextBox TXTBfile;
-        private System.Windows.Forms.Button BTNdeleteMod;
-        private System.Windows.Forms.Button BTNupdateMod;
-        private System.Windows.Forms.Button BTNaddMod;
         private System.Windows.Forms.Label LBLinfo;
         private System.Windows.Forms.Panel PANELinfo;
         private System.Windows.Forms.Label LBLinfoPanel;
+        private System.Windows.Forms.Label LBLgpa;
     }
 }

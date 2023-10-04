@@ -118,6 +118,20 @@ namespace GradeSystem
             }
         }
 
+        public static void ClearAllFields(Control parent) 
+        {
+            foreach (Control child in parent.Controls)
+            {
+                if (child is TextBox)
+                {
+                    ((TextBox)child).Text = "";
+                }
+                else
+                {
+                    ClearAllFields(child); // Recursion - calling the function inside itself
+                }
+            }
+        }
 
     }
 }
