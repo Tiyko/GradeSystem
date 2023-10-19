@@ -12,11 +12,10 @@ namespace GradeSystem
         public string Text { get; set; }
         public string Value { get; set; }
 
+        // Load data into a CheckedListBox based on user status (TEACHER or STUDENT)
         public static void LoadListBox(Control ctrl, string sql, string status)
         {
-
             CheckedListBox listBox = (CheckedListBox)ctrl;
-
             listBox.DisplayMember = "Text";
             listBox.ValueMember = "Value";
             listBox.Items.Clear();
@@ -25,8 +24,8 @@ namespace GradeSystem
             {
                 if (ctrl.Name == "CLBdetails")
                 {
+                    // Load teacher data into the CheckedListBox
                     var teacherInfo = Data.GetData<Teacher>(sql);
-
                     foreach (var info in teacherInfo)
                     {
                         listBox.Items.Add(new Utils
@@ -36,11 +35,10 @@ namespace GradeSystem
                         });
                     }
                 }
-
                 else if (ctrl.Name == "CLBmodules")
                 {
+                    // Load module data into the CheckedListBox
                     var moduleInfo = Data.GetData<Module>(sql);
-
                     foreach (var info in moduleInfo)
                     {
                         listBox.Items.Add(new Utils
@@ -50,14 +48,13 @@ namespace GradeSystem
                         });
                     }
                 }
-
             }
             else if (status == "STUDENT")
             {
                 if (ctrl.Name == "CLBdetails")
                 {
+                    // Load student data into the CheckedListBox
                     var studentInfo = Data.GetData<Student>(sql);
-
                     foreach (var info in studentInfo)
                     {
                         listBox.Items.Add(new Utils
@@ -67,13 +64,10 @@ namespace GradeSystem
                         });
                     }
                 }
-
-                
             }
-                 
-        
         }
 
+        // Load module data along with associated grades into the CheckedListBox
         public static void LoadModListBox(Control ctrl, List<Module> modInfo, List<Grade> gradeInfo)
         {
             CheckedListBox listBox = (CheckedListBox)ctrl;
@@ -94,31 +88,31 @@ namespace GradeSystem
             }
         }
 
+        // Get the selected item's Value from the CheckedListBox
         public static string GetSelectedID(Control ctrl)
         {
             CheckedListBox listBox = (CheckedListBox)ctrl;
-
             string id = "";
             foreach (var item in listBox.CheckedItems)
             {
                 var selectItem = (Utils)item;
                 id = selectItem.Value;
             }
-
             return id;
         }
 
+        // Uncheck all items in the CheckedListBox
         public static void UncheckListBoxItems(Control ctrl)
         {
             CheckedListBox listBox = (CheckedListBox)ctrl;
-
             for (int i = 0; i < listBox.Items.Count; i++)
             {
                 listBox.SetItemChecked(i, false);
             }
         }
 
-        public static void ClearAllFields(Control parent) 
+        // Recursively clear all fields in a parent control
+        public static void ClearAllFields(Control parent)
         {
             foreach (Control child in parent.Controls)
             {
@@ -132,6 +126,5 @@ namespace GradeSystem
                 }
             }
         }
-
     }
 }

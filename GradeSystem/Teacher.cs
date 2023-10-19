@@ -14,13 +14,14 @@ namespace GradeSystem
         public int TeacherID { get; set; }
 
         // Constructors
+        
+        public Teacher() { }
+
         /*
          * POLYMORPHISM / OVERLOADED
          *  - many methods/constructors with the same name but with different parameter list
          *      to function differently.
          */
-        public Teacher() { }
-
         public Teacher(int id, string fName, string lName)
         {
             TeacherID = id;

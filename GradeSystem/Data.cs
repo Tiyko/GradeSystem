@@ -521,14 +521,7 @@ namespace GradeSystem
         }
 
 
-
-
-
-
-
-
-
-
+        // Function that gets the Root Directory
         public static string GetRootDir() 
         {
             // Get the filepath to the executable file for this app

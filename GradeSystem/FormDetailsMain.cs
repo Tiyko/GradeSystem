@@ -10,12 +10,13 @@ namespace GradeSystem
     public partial class FormDetailsMain : Form
     {
         // Fields
+        // Fields to store the user's status, user ID, and module ID
         public string Stat = "TEACHER";
         public string ID = "0";
         public string ModID = "0";
 
 
-        // Constructor
+        // Constructors
         public FormDetailsMain()
         {
             InitializeComponent(); // function that initializes the designer class with the content of the form.
@@ -23,8 +24,10 @@ namespace GradeSystem
 
 
         // Events
+        // Event handler for when the form is loaded
         private void FormDetailsMain_Load(object sender, EventArgs e)
         {
+            // Get the root directory, insert teacher and student data from CSV files
             Data.GetRootDir();
             string res = "";
 
@@ -38,24 +41,24 @@ namespace GradeSystem
             LoadPersonDetails(Stat);
             AssignModules();
             GenerateGradeFiles();
-
         }
 
+        // Event handler for radio button selection to change the user status
         private void RBstatus_CheckedChanged(object sender, EventArgs e)
         {
-            
+            // Reset user and module IDs
             ID = "0";
             ModID = "0";
 
             if (RBteacher.Checked)
             {
+                // If the "Teacher" radio button is checked
                 this.Text = "Teacher Details";
                 LBLperson.Text = "Select Teacher";
                 Stat = "TEACHER";
 
                 BTNadd.Text = "NEW TEACHER";
                 BTNupdate.Text = "UPDATE TEACHER";
-
 
                 ShowStudentComponents(false);
                 LoadSelectedStudentGrade();
@@ -65,6 +68,7 @@ namespace GradeSystem
             }
             else
             {
+                // If the "Student" radio button is checked
                 this.Text = "Student Details";
                 LBLperson.Text = "Select Student";
                 Stat = "STUDENT";
@@ -84,21 +88,21 @@ namespace GradeSystem
             Utils.ClearAllFields(this);
             EnableUpdateDeleteButtons(false, ListType.Both);
             LoadPersonDetails(Stat);
-
         }
 
-        private void RBxml_CheckedChanged(object sender, EventArgs e)
-        {
-            TXTBfile.Clear();
-        }
-
+        // Event handler to clear the file input text box when CSV is selected
         private void RBcsv_CheckedChanged(object sender, EventArgs e)
         {
             TXTBfile.Clear();
         }
 
+        // Event handler to clear the file input text box when XML is selected
+        private void RBxml_CheckedChanged(object sender, EventArgs e)
+        {
+            TXTBfile.Clear();
+        }
 
-
+        // Event handler for CheckedListBox item selection (loads module or grade details)
         private void CLB_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CheckedListBox listBox = (CheckedListBox)sender;
@@ -110,15 +114,12 @@ namespace GradeSystem
             {
                 lType = ListType.Detail;
             }
-            else if (clbName == "CLBmodules") 
-            { 
+            else if (clbName == "CLBmodules")
+            {
                 lType = ListType.Module;
             }
 
-            // Programatically uncheck the previously checked checkbox when the user 
-            // checks another one. This means there will always be a maximum of
-            // one item selected in the CheckListBox
-
+            // Uncheck other items when a new item is checked
             if (e.NewValue == CheckState.Checked)
             {
                 for (int i = 0; i < listBox.Items.Count; i++)
@@ -133,6 +134,7 @@ namespace GradeSystem
             }
         }
 
+        // Event handler for CheckedListBox item selection (loads details or modules)
         private void CLBdetails_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSelectedDetails();
@@ -147,22 +149,20 @@ namespace GradeSystem
             SetAddButtonStateNew();
         }
 
+        // Event handler for CheckedListBox item selection (loads module details)
         private void CLBmoduleDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSelectedModuleDetails();
         }
 
+        // Event handler for the "Add" button (adding a new teacher or student)
         private void BTNadd_Click(object sender, EventArgs e)
         {
-
             string buttonState = BTNadd.Text;
             int numRowsAffected = 0;
 
-
             if (buttonState == "NEW " + Stat)
             {
-
-
                 SetAddButtonStateSave();
             }
             else
@@ -175,18 +175,17 @@ namespace GradeSystem
                 if (numRowsAffected > 0)
                 {
                     MessageBox.Show("A New " + Stat + " has been added.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
                     LoadPersonDetails(Stat);
                     SetAddButtonStateNew();
                 }
                 else
                 {
                     MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
                 }
             }
         }
 
+        // Event handler for the "Update" button (updating teacher or student information)
         private void BTNupdate_Click(object sender, EventArgs e)
         {
 
@@ -219,13 +218,8 @@ namespace GradeSystem
             string buttonState = BTNupdate.Text;
             int numRowsAffected = 0;
 
-
-
-
             if (buttonState == "UPDATE " + Stat)
             {
-
-
                 SetUpdateButtonStateSave();
             }
             else
@@ -238,19 +232,17 @@ namespace GradeSystem
                 if (numRowsAffected > 0)
                 {
                     MessageBox.Show(Stat + " has been updated.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
                     LoadPersonDetails(Stat);
                     SetUpdateButtonStateUpdate();
                 }
                 else
                 {
                     MessageBox.Show("Fail!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
                 }
             }
-
         }
 
+        // Event handler for selecting a file to import (CSV or XML)
         private void BTNfile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -263,11 +255,8 @@ namespace GradeSystem
                 }
                 else if (RBxml.Checked)
                 {
-
                     dlg.Title = "Select XML File!";
                     dlg.Filter = "XML Files (*.xml)|*.xml";
-
-
                 }
 
                 dlg.InitialDirectory = filePath;
@@ -277,10 +266,10 @@ namespace GradeSystem
                     TXTBfile.Text = file;
                     BTNimport.Enabled = true;
                 }
-
             }
         }
 
+        // Event handler for importing a CSV or XML file (grades)
         private void BTNimport_Click(object sender, EventArgs e)
         {
             string res = "";
@@ -298,15 +287,11 @@ namespace GradeSystem
                     TXTBfile.Clear();
                     res = Data.InsertObjectsFromXml<Grade>(filePath);
                 }
-                else
-                {
-
-                }
             }
             LBLinfo.Text += res + "\n";
-
         }
 
+        // Event handler for closing the application (confirmation dialog)
         private void BTNclose_Click(object sender, EventArgs e)
         {
             DialogResult dlgRes = new DialogResult();
@@ -318,6 +303,7 @@ namespace GradeSystem
             }
         }
 
+        // Event handler for text changes in the input fields (enables the "Add" button)
         private void TXTB_TextChanged(object sender, EventArgs e)
         {
             if ((TXTBfirstName.TextLength > 0 && TXTBlastName.TextLength > 0 && BTNadd.Text == "SAVE " + Stat) || BTNadd.Text == "NEW " + Stat)
@@ -331,14 +317,15 @@ namespace GradeSystem
         }
 
 
-
-        // Helper Methods
+        // Helper methods
+        // Helper method to load person details (teachers or students) from the database
         public void LoadPersonDetails(string personType) // function to query the database and select a table depending on necessity
         {
             string sql = "select * from " + personType; // query the database and store the details in a variable
             Utils.LoadListBox(CLBdetails, sql, Stat); // populates the form CheckListBox with the details from the database
         }
 
+        // Helper method to load selected details (teacher or student)
         private void LoadSelectedDetails()
         {
             // variables to store the details retrieved from the database
@@ -359,7 +346,7 @@ namespace GradeSystem
                 {
                     var teach = teacherInfo[0]; // sets the position in the array to 0
                     Teacher teacher = new Teacher(teach.TeacherID, teach.FName, teach.LName);
-                    fName = teacher.FName; 
+                    fName = teacher.FName;
                     lName = teacher.LName;
                 }
             }
@@ -376,12 +363,11 @@ namespace GradeSystem
             }
 
             TXTBfirstName.Text = fName; // display the retrevied and stored information
-            TXTBlastName.Text = lName; // to the form's textboxes, in the curent case
-                                          // a student or a teacher's first and last name
-
+            TXTBlastName.Text = lName;  // to the form's textboxes, in the curent case
+                                        // a student or a teacher's first and last name
         }
 
-
+        // Method to load module details for students or teachers
         private void LoadSelectedModuleDetails()
         {
             string modName = "";
@@ -411,7 +397,7 @@ namespace GradeSystem
             }
         }
 
-
+        // Method to load student grades and calculate GPA
         private void LoadSelectedStudentGrade()
         {
             string id = Utils.GetSelectedID(CLBdetails);
@@ -431,6 +417,7 @@ namespace GradeSystem
             CalculateGPA();
         }
 
+        // Method to calculate GPA
         private void CalculateGPA()
         {
             ID = Utils.GetSelectedID(CLBdetails);
@@ -474,24 +461,22 @@ namespace GradeSystem
             LBLgpa.Text = $"GPA: {gpa:F2}";
         }
 
+        // Method to change the state of the "Add" button for adding a new user
         private void SetAddButtonStateNew()
         {
             string buttonState = BTNadd.Text;
-            
 
             if (buttonState == "SAVE " + Stat)
             {
                 BTNadd.Text = "NEW " + Stat;
-
                 SetTextBoxReadOnly(true);
-
+                TXTBfirstName.Text = "";
                 TXTBfirstName.Text = ""; // clearing fields using an empty string
                 TXTBlastName.Clear(); // clearing fields using Clear() function
             }
-
         }
 
-
+        // Method to change the state of the "Add" button for saving a new user
         private void SetAddButtonStateSave()
         {
             string buttonState = BTNadd.Text;
@@ -499,32 +484,30 @@ namespace GradeSystem
             {
                 Utils.UncheckListBoxItems(CLBdetails);
                 Utils.ClearAllFields(this);
-
                 LoadSelectedDetails();
                 LoadModules();
                 SetTextBoxReadOnly(false);
-
                 BTNadd.Text = "SAVE " + Stat;
-                BTNadd.Enabled = false; 
+                BTNadd.Enabled = false;
             }
         }
 
+        // Method to change the state of the "Update" button for updating user information
         private void SetUpdateButtonStateUpdate()
         {
             string buttonState = BTNupdate.Text;
 
-
             if (buttonState == "SAVE " + Stat)
             {
                 BTNupdate.Text = "UPDATE " + Stat;
-
                 SetTextBoxReadOnly(true);
-
+                TXTBfirstName.Text = "";
                 TXTBfirstName.Text = ""; // clearing fields using an empty string
                 TXTBlastName.Clear(); // clearing fields using Clear() function
             }
         }
 
+        // Method to change the state of the "Update" button for saving updates
         private void SetUpdateButtonStateSave()
         {
             string buttonState = BTNupdate.Text;
@@ -533,33 +516,28 @@ namespace GradeSystem
                 LoadSelectedDetails();
                 LoadModules();
                 SetTextBoxReadOnly(false);
-
                 BTNupdate.Text = "SAVE " + Stat;
                 BTNupdate.Enabled = true;
-
                 BTNadd.Enabled = false;
-
             }
         }
 
+        // Method to add a new teacher
         private int AddTeacher()
         {
             string sql = "insert into " + Stat + "(fName, lName) Values('" + TXTBfirstName.Text + "', '" + TXTBlastName.Text + "')";
-
             int numRowsAffected = Data.ExecuteSqlNonQuery(sql);
-
             return numRowsAffected;
-
         }
 
-        private int AddStudent() 
+        // Method to add a new student
+        private int AddStudent()
         {
             string storedProcedure = "SP_InsertStudent";
             string fName = TXTBfirstName.Text;
             string lName = TXTBlastName.Text;
 
-
-            Dictionary<string, object> spParams = new Dictionary<string, object> 
+            Dictionary<string, object> spParams = new Dictionary<string, object>
             {
                 { "@FirstName", fName },
                 { "@LastName", lName },
@@ -567,15 +545,15 @@ namespace GradeSystem
 
             int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
             return numRowsAffected;
-
         }
 
+        // Method to update teacher information
         private int UpdateTeacher()
         {
             string storedProcedure = "SP_UpdateTeacher";
             string fName = TXTBfirstName.Text;
             string lName = TXTBlastName.Text;
-            string idTeacher = Utils.GetSelectedID(CLBdetails); 
+            string idTeacher = Utils.GetSelectedID(CLBdetails);
 
             Dictionary<string, object> spParams = new Dictionary<string, object>
             {
@@ -588,6 +566,7 @@ namespace GradeSystem
             return numRowsAffected;
         }
 
+        // Method to update student information
         private int UpdateStudent()
         {
             string storedProcedure = "SP_UpdateStudent";
@@ -595,19 +574,18 @@ namespace GradeSystem
             string lName = TXTBlastName.Text;
             string idStudent = Utils.GetSelectedID(CLBdetails);
 
-
             Dictionary<string, object> spParams = new Dictionary<string, object>
             {
                 { "@FirstName", fName },
                 { "@LastName", lName },
-                { "@StudentID", idStudent}
+                { "@StudentID", idStudent }
             };
 
             int numRowsAffected = Data.ExecuteSqlNonQuery(storedProcedure, spParams, CommandType.StoredProcedure);
             return numRowsAffected;
         }
 
-
+        // Method to enable or disable the "Update" and "Delete" buttons based on the list type (Detail, Module, Both)
         private void EnableUpdateDeleteButtons(bool state, ListType listType = ListType.Detail)
         {
             if (listType == ListType.Detail)
@@ -615,13 +593,11 @@ namespace GradeSystem
                 BTNupdate.Enabled = state;
                 TXTBfirstName.ReadOnly = !state;
                 TXTBlastName.ReadOnly = !state;
-                
             }
             else if (listType == ListType.Module)
             {
                 TXTBmodule.ReadOnly = !state;
                 TXTBgrade.ReadOnly = !state;
-
             }
             else if (listType == ListType.Both)
             {
@@ -631,17 +607,20 @@ namespace GradeSystem
             }
         }
 
+        // Method to set the read-only state of text boxes
         private void SetTextBoxReadOnly(bool state)
         {
             TXTBfirstName.ReadOnly = state;
             TXTBlastName.ReadOnly = state;
         }
 
+        // Method to enable or disable the "Add" button
         private void EnableAddButton(bool state)
         {
             BTNadd.Enabled = state;
         }
 
+        // Method to show or hide components specific to student details
         private void ShowStudentComponents(bool state)
         {
             LBLgradeName.Visible = state;
@@ -649,7 +628,8 @@ namespace GradeSystem
             GBBulk.Visible = state;
         }
 
-        private void LoadModules() 
+        // Method to load modules for a teacher
+        private void LoadModules()
         {
             string id = "0";
             id = Utils.GetSelectedID(CLBdetails);
@@ -658,7 +638,8 @@ namespace GradeSystem
             Utils.LoadListBox(CLBmodules, sql, Stat);
         }
 
-        private void AssignModules() 
+        // Method to assign modules to teachers
+        private void AssignModules()
         {
             string res = "";
             string sql = "select TeacherID from Teacher order by TeacherID desc";
@@ -678,15 +659,15 @@ namespace GradeSystem
             foreach (string module in moduleNames)
             {
                 int teacherId = teacherIds[tIndex];
-                mods.Add(new Module { 
+                mods.Add(new Module
+                {
                     ModName = module,
                     TeacherID = teacherId
                 });
-            
 
-            tIndex = (tIndex + 1) % teacherIds.Count;
+                tIndex = (tIndex + 1) % teacherIds.Count;
 
-            Data.GenerateXmlFile<Module>(mods, Data.GetRootDir() + "\\Module\\modules.xml");
+                Data.GenerateXmlFile<Module>(mods, Data.GetRootDir() + "\\Module\\modules.xml");
             }
 
             LBLinfo.Text += "modules.xml file created \n";
@@ -694,20 +675,8 @@ namespace GradeSystem
             LBLinfo.Text += res;
         }
 
-        //private static Random random = new Random();
-        private static string GenerateRandomGrade(Random random)
-        {
-            // Define an array of possible grades
-            string[] grades = { "A", "B", "C", "D", "E", "F" };
-
-            // Generate a random index to select a grade from the array
-            int randomIndex = random.Next(grades.Length);
-
-            // Return the randomly selected grade
-            return grades[randomIndex];
-        }
-
-        public void GenerateGradeFiles()
+        // Method to generate random grades for students
+        private void GenerateGradeFiles()
         {
             try
             {
@@ -757,12 +726,21 @@ namespace GradeSystem
             }
         }
 
-        private List<int> GetListIds<T>(string sql, Func<T, int> idSelector) 
+        // Method to generate a random grade
+        private string GenerateRandomGrade(Random random)
+        {
+            string[] grades = { "A", "B", "C", "D", "E", "F" };
+            int randomIndex = random.Next(grades.Length);
+            return grades[randomIndex];
+        }
+
+        // Method to get a list of IDs for a specific type
+        private List<int> GetListIds<T>(string sql, Func<T, int> idSelector)
         {
             List<int> ids = new List<int>();
             List<T> objs = Data.GetData<T>(sql);
 
-            foreach (T objItem in objs) 
+            foreach (T objItem in objs)
             {
                 int id = idSelector(objItem);
                 ids.Add(id);
@@ -770,17 +748,16 @@ namespace GradeSystem
 
             return ids;
         }
+    }
 
 
-
-        // Enums - enumerations - means specific list
-        // In C# enums are a special type of class. Its values represent a group of constant fields(variables)
-        enum ListType
-        {
-            Detail,
-            Module,
-            Both
-        }
-
+    // Enums - enumerations - means specific list
+    // In C# enums are a special type of class. Its values represent a group of constant fields(variables)
+    enum ListType
+    {
+        Detail,
+        Module,
+        Both
     }
 }
+

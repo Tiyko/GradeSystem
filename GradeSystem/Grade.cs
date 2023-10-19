@@ -10,12 +10,13 @@ namespace GradeSystem
 {
     public class Grade
     {
+        // Properties
         public int GradeID { get; set; }
         public string TheGrade { get; set; }
         public int ModID { get; set;}
         public int StudentID { get; set; }
 
-
+        // Constructors
         public Grade() { }
 
         public Grade(int gradeID, string theGrade, int modID, int studentID)

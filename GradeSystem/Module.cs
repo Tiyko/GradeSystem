@@ -9,6 +9,7 @@ namespace GradeSystem
 {
     public class Module
     {
+        // Properties
         public int ModID { get; set; }
         public string ModName { get; set; }
         public int TeacherID { get; set; }
